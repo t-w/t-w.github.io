@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Your awesome title</title>
+    <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</description>
+    <link>http://yourdomain.com/</link>
+    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Thu, 08 Sep 2016 02:12:17 +0200</pubDate>
+    <lastBuildDate>Thu, 08 Sep 2016 02:12:17 +0200</lastBuildDate>
+    <generator>Jekyll v2.2.0</generator>
+    
+      <item>
+        <title>Debugging inside shared libraries with GNU debugger (gdb)</title>
+        <description>&lt;p&gt;Since there seems to be no post with a reasonably condensed info on this topic
+(in kind of solution based format, not complete-and-hard-to-find-detail-you-need documentation)
+I thought gathering these misc. pieces might be useful for others.&lt;/p&gt;
+
+&lt;p&gt;Debugging execution of your program INSIDE a shared library you need a bit more than just compiling it with &lt;code&gt;-g&lt;/code&gt;. Let’s see a simple case - a program using a call to a function from &lt;code&gt;SDL2_mixer&lt;/code&gt;, as an example.&lt;/p&gt;
+
+&lt;p&gt;Initially requesting step-into results in step-over:&lt;/p&gt;
+
+&lt;p&gt;highlight
+78              audio_mix_chunks[i] = Mix_LoadWAV(fname);
+(gdb) s
+80              if (audio_mix_chunks[i] == NULL)
+endhighlight&lt;/p&gt;
+
+&lt;p&gt;Well, that’s not what we want…&lt;/p&gt;
+
+&lt;p&gt;Author’s newbie experience leads to conclusion that two things are probably missing:
+debug information in the binary (library in this case), and the source code for it.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Debug information for the library
+In case of Debian - you just have to install &lt;code&gt;libXYZ-dbg&lt;/code&gt; package (where XYZ is the library you want to examine). So:
+highlight
+$ aptitude install libsdl2-mixer-dbg
+endhighlight&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;and we have now:&lt;/p&gt;
+
+&lt;p&gt;highlight
+(gdb) s
+Mix_LoadWAV_RW (src=0x7fffffffe270, freesrc=4203968) at mixer.c:573
+573     mixer.c: No such file or directory.
+(gdb) s
+581     in mixer.c
+(gdb) s
+587     in mixer.c
+(gdb) s
+596     in mixer.c
+endhighlight&lt;/p&gt;
+
+&lt;p&gt;We have arrived to another code module, part of dynamically linked &lt;code&gt;libSDL2_mixer&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now, we can the the line number and the name of the source file, but gdb does not show any code…&lt;/p&gt;
+
+&lt;p&gt;This leads us to the 2nd missing thing:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;The source code of the library&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We know more less how to get it ;-), eg.:&lt;/p&gt;
+
+&lt;p&gt;highlight
+$ apt-get source libsdl2-mixer-dev
+endhighlight&lt;/p&gt;
+
+&lt;p&gt;what results in my case in sources in &lt;code&gt;libsdl2-mixer-2.0.0+dfsg1/&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;But where should we put them so that &lt;code&gt;gdb&lt;/code&gt; finds them?&lt;/p&gt;
+
+&lt;p&gt;highlight
+(gdb) s
+Mix_LoadWAV_RW (src=0x7fffffffe270, freesrc=4203968) at mixer.c:573
+573     mixer.c: No such file or directory.
+(gdb) info frame
+Stack level 0, frame at 0x7fffffffe140:
+ rip = 0x7ffff6b04be0 in Mix_LoadWAV_RW (mixer.c:573); saved rip = 0x4092b6
+ called by frame at 0x7fffffffe280
+ source language c.
+ Arglist at 0x7fffffffe130, args: src=0x7fffffffe270, freesrc=4203968
+ Locals at 0x7fffffffe130, Previous frame’s sp is 0x7fffffffe140
+ Saved registers:
+  rip at 0x7fffffffe138
+endhighlight
+- and still no clue…&lt;/p&gt;
+
+&lt;p&gt;Since &lt;code&gt;libSDL2_mixer&lt;/code&gt; is clearly dependent on &lt;code&gt;libSDL2&lt;/code&gt; I decide to try:&lt;/p&gt;
+
+&lt;p&gt;highlight
+$ apt-get install libsdl2-dbg
+endhighlight&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;and now(!):
+highlight
+78              audio_mix_chunks[i] = Mix_LoadWAV(fname);
+(gdb) s
+SDL_RWFromFile (a=0x7fffffffe160 “data/snd/S00.wav”, b=0x43b7bf “rb”)
+  at /tmp/buildd/libsdl2-2.0.2+dfsg1/src/dynapi/SDL_dynapi_procs.h:386
+386     /tmp/buildd/libsdl2-2.0.2+dfsg1/src/dynapi/SDL_dynapi_procs.h: No such file or directory.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(gdb) info frame
+Stack level 0, frame at 0x7fffffffe140:
+ rip = 0x7ffff6d925b0 in SDL_RWFromFile
+    (/tmp/buildd/libsdl2-2.0.2+dfsg1/src/dynapi/SDL_dynapi_procs.h:386); saved rip = 0x4092a9
+ called by frame at 0x7fffffffe280
+ source language c.
+ Arglist at 0x7fffffffe130, args: a=0x7fffffffe160 “data/snd/S00.wav”, b=0x43b7bf “rb”
+ Locals at 0x7fffffffe130, Previous frame’s sp is 0x7fffffffe140
+ Saved registers:
+  rip at 0x7fffffffe138
+endhighlight&lt;/p&gt;
+
+&lt;p&gt;Finally gdb is informing us nicely where it expects the source code of the libraries - so we can provide it:&lt;/p&gt;
+
+&lt;p&gt;highlight
+$ mkdir /tmp/buildd ; cd /tmp/buildd/
+$ apt-get source libsdl2-mixer-dev
+$ apt-get source libsdl2-dev
+endhighlight&lt;/p&gt;
+
+&lt;p&gt;This time we should see what’s inside the libraru, for example:&lt;/p&gt;
+
+&lt;p&gt;highlight
+78              audio_mix_chunks[i] = Mix_LoadWAV(fname);
+(gdb) s
+SDL_RWFromFile (a=0x7fffffffe160 “data/snd/S00.wav”, b=0x43b7bf “rb”)
+    at /tmp/buildd/libsdl2-2.0.2+dfsg1/src/dynapi/SDL_dynapi_procs.h:386
+386     SDL_DYNAPI_PROC(SDL_RWops&lt;em&gt;,SDL_RWFromFile,(const char *a, const char *b),(a,b),return)
+(gdb) s
+SDL_RWFromFile_REAL (file=0x7fffffffe160 “data/snd/S00.wav”, mode=0x43b7bf “rb”)
+    at /tmp/buildd/libsdl2-2.0.2+dfsg1/src/file/SDL_rwops.c:461
+461         if (!file || !&lt;/em&gt;file || !mode || !&lt;em&gt;mode) {
+(gdb) s
+459     {
+(gdb) s
+461         if (!file || !&lt;/em&gt;file || !mode || !*mode) {
+(gdb) s
+526             FILE *fp = fopen(file, mode);
+(gdb) n
+528             if (fp == NULL) {
+endhighlight&lt;/p&gt;
+
+&lt;p&gt;Later I learned that there is another (better!) way to find out the source files
+and their paths that &lt;code&gt;gdb&lt;/code&gt; expects:
+highlight
+(gdb) info sources&lt;/p&gt;
+
+&lt;p&gt;(a looong list…)&lt;/p&gt;
+
+&lt;p&gt;/tmp/buildd/libsdl2-mixer-2.0.0+dfsg1/music.c, /tmp/buildd/libsdl2-mixer-2.0.0+dfsg1/mixer.c,&lt;/p&gt;
+
+&lt;p&gt;(another looong list…)
+endhighlight&lt;/p&gt;
+
+&lt;p&gt;Information on the blog 4. suggests that it is possible also to specify gdb the directory with sources doing eg:&lt;/p&gt;
+
+&lt;p&gt;highlight
+(gdb) dir /var/tmp/sources/libc6/eglibc-2.15/malloc/
+endhighlight&lt;/p&gt;
+
+&lt;p&gt;even saving in a file:
+highlight
+$ echo dir /var/tmp/sources/libc6/eglibc-2.15/malloc/ &amp;gt; gdb.setup
+$ gdb program -c core -x gdb.setup
+endhighlight&lt;/p&gt;
+
+&lt;p&gt;but (if I understant it well…) it specifies a &lt;em&gt;single&lt;/em&gt; directory, not complete directory tree with all sources of a library that can be used easily by gdb.&lt;/p&gt;
+
+&lt;p&gt;Useful related links:
+1. &lt;a href=&quot;https://www.debian.org/doc/manuals/maint-guide/advanced.en.html&quot;&gt;Debian maintainer’s guide&lt;/a&gt;
+2. &lt;a href=&quot;https://www.debian.org/doc/debian-policy/ch-sharedlibs.html&quot;&gt;Debian Policy Manual&lt;/a&gt;
+3. &lt;a href=&quot;http://www.thegeekstuff.com/2014/03/few-gdb-commands/&quot;&gt;Few GDB Commands – Debug Core, Disassemble, Load Shared Library (Blog article)&lt;/a&gt;
+4. &lt;a href=&quot;http://trail-of-a-programmer.blogspot.com/2014/11/make-system-library-source-code.html&quot;&gt;Make system library source code available to gdb on Ubuntu&lt;/a&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Thu, 08 Sep 2016 00:00:00 +0200</pubDate>
+        <link>http://yourdomain.com/software/development/debugging/shared/libraries/gdb/2016/09/08/gdb_shared_lib/</link>
+        <guid isPermaLink="true">http://yourdomain.com/software/development/debugging/shared/libraries/gdb/2016/09/08/gdb_shared_lib/</guid>
+        
+        
+        <category>software</category>
+        
+        <category>development</category>
+        
+        <category>debugging</category>
+        
+        <category>shared</category>
+        
+        <category>libraries</category>
+        
+        <category>gdb</category>
+        
+      </item>
+    
+      <item>
+        <title>Welcome to Jekyll!</title>
+        <description>&lt;p&gt;You’ll find this post in your &lt;code&gt;_posts&lt;/code&gt; directory - edit this post and re-build (or run with the &lt;code&gt;-w&lt;/code&gt; switch) to see your changes!
+To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; directory that follows the convention: YYYY-MM-DD-name-of-post.ext.&lt;/p&gt;
+
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Tom&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints &amp;#39;Hi, Tom&amp;#39; to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 07 Sep 2016 22:24:29 +0200</pubDate>
+        <link>http://yourdomain.com/jekyll/update/2016/09/07/welcome-to-jekyll/</link>
+        <guid isPermaLink="true">http://yourdomain.com/jekyll/update/2016/09/07/welcome-to-jekyll/</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+  </channel>
+</rss>
