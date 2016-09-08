@@ -5,8 +5,8 @@
     <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Thu, 08 Sep 2016 02:12:17 +0200</pubDate>
-    <lastBuildDate>Thu, 08 Sep 2016 02:12:17 +0200</lastBuildDate>
+    <pubDate>Thu, 08 Sep 2016 16:03:25 +0200</pubDate>
+    <lastBuildDate>Thu, 08 Sep 2016 16:03:25 +0200</lastBuildDate>
     <generator>Jekyll v2.2.0</generator>
     
       <item>
@@ -19,11 +19,9 @@ I thought gathering these misc. pieces might be useful for others.&lt;/p&gt;
 
 &lt;p&gt;Initially requesting step-into results in step-over:&lt;/p&gt;
 
-&lt;p&gt;highlight
-78              audio_mix_chunks[i] = Mix_LoadWAV(fname);
-(gdb) s
-80              if (audio_mix_chunks[i] == NULL)
-endhighlight&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c&quot; data-lang=&quot;c&quot;&gt;&lt;span class=&quot;mi&quot;&gt;78&lt;/span&gt;              &lt;span class=&quot;n&quot;&gt;audio_mix_chunks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Mix_LoadWAV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gdb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;80&lt;/span&gt;              &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;audio_mix_chunks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Well, that’s not what we want…&lt;/p&gt;
 
@@ -170,7 +168,7 @@ $ echo dir /var/tmp/sources/libc6/eglibc-2.15/malloc/ &amp;gt; gdb.setup
 $ gdb program -c core -x gdb.setup
 endhighlight&lt;/p&gt;
 
-&lt;p&gt;but (if I understant it well…) it specifies a &lt;em&gt;single&lt;/em&gt; directory, not complete directory tree with all sources of a library that can be used easily by gdb.&lt;/p&gt;
+&lt;p&gt;but (if I understand it well…) it specifies a &lt;em&gt;single&lt;/em&gt; directory, not complete directory tree with all sources of a library that can be used easily by gdb.&lt;/p&gt;
 
 &lt;p&gt;Useful related links:
 1. &lt;a href=&quot;https://www.debian.org/doc/manuals/maint-guide/advanced.en.html&quot;&gt;Debian maintainer’s guide&lt;/a&gt;
@@ -178,6 +176,11 @@ endhighlight&lt;/p&gt;
 3. &lt;a href=&quot;http://www.thegeekstuff.com/2014/03/few-gdb-commands/&quot;&gt;Few GDB Commands – Debug Core, Disassemble, Load Shared Library (Blog article)&lt;/a&gt;
 4. &lt;a href=&quot;http://trail-of-a-programmer.blogspot.com/2014/11/make-system-library-source-code.html&quot;&gt;Make system library source code available to gdb on Ubuntu&lt;/a&gt;&lt;/p&gt;
 
+&lt;p&gt;https://sourceware.org/gdb/onlinedocs/gdb/Files.html
+https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html&lt;/p&gt;
+
+&lt;p&gt;Misc.
+- (gdb) info sharedlibrary&lt;/p&gt;
 </description>
         <pubDate>Thu, 08 Sep 2016 00:00:00 +0200</pubDate>
         <link>http://yourdomain.com/software/development/debugging/shared/libraries/gdb/2016/09/08/gdb_shared_lib/</link>

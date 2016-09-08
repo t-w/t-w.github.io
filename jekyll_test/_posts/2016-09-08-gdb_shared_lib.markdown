@@ -12,11 +12,11 @@ Debugging execution of your program INSIDE a shared library you need a bit more 
 
 Initially requesting step-into results in step-over:
 
-highlight
+{% highlight c %}
 78              audio_mix_chunks[i] = Mix_LoadWAV(fname);
 (gdb) s
 80              if (audio_mix_chunks[i] == NULL)
-endhighlight
+{% endhighlight %}
 
 
 Well, that's not what we want...
@@ -158,7 +158,7 @@ $ echo dir /var/tmp/sources/libc6/eglibc-2.15/malloc/ > gdb.setup
 $ gdb program -c core -x gdb.setup
 endhighlight
 
-but (if I understant it well...) it specifies a _single_ directory, not complete directory tree with all sources of a library that can be used easily by gdb.
+but (if I understand it well...) it specifies a _single_ directory, not complete directory tree with all sources of a library that can be used easily by gdb.
 
 
 Useful related links:
@@ -171,3 +171,11 @@ Useful related links:
 [2.]: https://www.debian.org/doc/debian-policy/ch-sharedlibs.html
 [3.]: http://www.thegeekstuff.com/2014/03/few-gdb-commands/
 [4.]: http://trail-of-a-programmer.blogspot.com/2014/11/make-system-library-source-code.html
+
+
+https://sourceware.org/gdb/onlinedocs/gdb/Files.html
+https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html
+
+
+Misc.
+- (gdb) info sharedlibrary

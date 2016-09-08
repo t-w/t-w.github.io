@@ -69,11 +69,9 @@ I thought gathering these misc. pieces might be useful for others.</p>
 
 <p>Initially requesting step-into results in step-over:</p>
 
-<p>highlight
-78              audio_mix_chunks[i] = Mix_LoadWAV(fname);
-(gdb) s
-80              if (audio_mix_chunks[i] == NULL)
-endhighlight</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="mi">78</span>              <span class="n">audio_mix_chunks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Mix_LoadWAV</span><span class="p">(</span><span class="n">fname</span><span class="p">);</span>
+<span class="p">(</span><span class="n">gdb</span><span class="p">)</span> <span class="n">s</span>
+<span class="mi">80</span>              <span class="k">if</span> <span class="p">(</span><span class="n">audio_mix_chunks</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span></code></pre></div>
 
 <p>Well, that’s not what we want…</p>
 
@@ -220,7 +218,7 @@ $ echo dir /var/tmp/sources/libc6/eglibc-2.15/malloc/ &gt; gdb.setup
 $ gdb program -c core -x gdb.setup
 endhighlight</p>
 
-<p>but (if I understant it well…) it specifies a <em>single</em> directory, not complete directory tree with all sources of a library that can be used easily by gdb.</p>
+<p>but (if I understand it well…) it specifies a <em>single</em> directory, not complete directory tree with all sources of a library that can be used easily by gdb.</p>
 
 <p>Useful related links:
 1. <a href="https://www.debian.org/doc/manuals/maint-guide/advanced.en.html">Debian maintainer’s guide</a>
@@ -228,6 +226,11 @@ endhighlight</p>
 3. <a href="http://www.thegeekstuff.com/2014/03/few-gdb-commands/">Few GDB Commands – Debug Core, Disassemble, Load Shared Library (Blog article)</a>
 4. <a href="http://trail-of-a-programmer.blogspot.com/2014/11/make-system-library-source-code.html">Make system library source code available to gdb on Ubuntu</a></p>
 
+<p>https://sourceware.org/gdb/onlinedocs/gdb/Files.html
+https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html</p>
+
+<p>Misc.
+- (gdb) info sharedlibrary</p>
 
   </article>
 
