@@ -26,13 +26,13 @@ debug information in the binary (library in this case), and the source code for 
 
 1. Debug information for the library
 In case of Debian - you just have to install `libXYZ-dbg` package (where XYZ is the library you want to examine). So:
-highlight
+{% highlight c %}
 $ aptitude install libsdl2-mixer-dbg
-endhighlight
+{% endhighlight %}
 
 and we have now:
 
-highlight
+{% highlight c %}
 (gdb) s
 Mix_LoadWAV_RW (src=0x7fffffffe270, freesrc=4203968) at mixer.c:573
 573     mixer.c: No such file or directory.
@@ -42,7 +42,7 @@ Mix_LoadWAV_RW (src=0x7fffffffe270, freesrc=4203968) at mixer.c:573
 587     in mixer.c
 (gdb) s
 596     in mixer.c
-endhighlight
+{% endhighlight %}
 
 We have arrived to another code module, part of dynamically linked `libSDL2_mixer`.
 
@@ -54,15 +54,15 @@ This leads us to the 2nd missing thing:
 
 We know more less how to get it ;-), eg.:
 
-highlight
+{% highlight c %}
 $ apt-get source libsdl2-mixer-dev
-endhighlight
+{% endhighlight %}
 
 what results in my case in sources in `libsdl2-mixer-2.0.0+dfsg1/`.
 
 But where should we put them so that `gdb` finds them?
 
-highlight
+{% highlight c %}
 (gdb) s
 Mix_LoadWAV_RW (src=0x7fffffffe270, freesrc=4203968) at mixer.c:573
 573     mixer.c: No such file or directory.
@@ -75,17 +75,17 @@ Stack level 0, frame at 0x7fffffffe140:
  Locals at 0x7fffffffe130, Previous frame's sp is 0x7fffffffe140
  Saved registers:
   rip at 0x7fffffffe138
-endhighlight
+{% endhighlight %}
 - and still no clue...
 
 Since `libSDL2_mixer` is clearly dependent on `libSDL2` I decide to try:
 
-highlight
+{% highlight c %}
 $ apt-get install libsdl2-dbg
-endhighlight
+{% endhighlight %}
 
 - and now(!):
-highlight
+{% highlight c %}
 78              audio_mix_chunks[i] = Mix_LoadWAV(fname);
 (gdb) s
 SDL_RWFromFile (a=0x7fffffffe160 "data/snd/S00.wav", b=0x43b7bf "rb")
@@ -102,19 +102,19 @@ Stack level 0, frame at 0x7fffffffe140:
  Locals at 0x7fffffffe130, Previous frame's sp is 0x7fffffffe140
  Saved registers:
   rip at 0x7fffffffe138
-endhighlight
+{% endhighlight %}
 
 Finally gdb is informing us nicely where it expects the source code of the libraries - so we can provide it:
 
-highlight
+{% highlight c %}
 $ mkdir /tmp/buildd ; cd /tmp/buildd/
 $ apt-get source libsdl2-mixer-dev
 $ apt-get source libsdl2-dev
-endhighlight
+{% endhighlight %}
 
 This time we should see what's inside the libraru, for example:
 
-highlight
+{% highlight c %}
 78              audio_mix_chunks[i] = Mix_LoadWAV(fname);
 (gdb) s
 SDL_RWFromFile (a=0x7fffffffe160 "data/snd/S00.wav", b=0x43b7bf "rb")
@@ -132,11 +132,12 @@ SDL_RWFromFile_REAL (file=0x7fffffffe160 "data/snd/S00.wav", mode=0x43b7bf "rb")
 526             FILE *fp = fopen(file, mode);
 (gdb) n
 528             if (fp == NULL) {
-endhighlight
+{% endhighlight %}
 
 Later I learned that there is another (better!) way to find out the source files
 and their paths that `gdb` expects:
-highlight
+
+{% highlight c %}
 (gdb) info sources
 
 (a looong list...)
@@ -144,19 +145,20 @@ highlight
 /tmp/buildd/libsdl2-mixer-2.0.0+dfsg1/music.c, /tmp/buildd/libsdl2-mixer-2.0.0+dfsg1/mixer.c,
 
 (another looong list...)
-endhighlight
+{% endhighlight %}
 
 Information on the blog 4. suggests that it is possible also to specify gdb the directory with sources doing eg:
 
-highlight
+{% highlight c %}
 (gdb) dir /var/tmp/sources/libc6/eglibc-2.15/malloc/
-endhighlight
+{% endhighlight %}
 
 even saving in a file:
-highlight
+
+{% highlight c %}
 $ echo dir /var/tmp/sources/libc6/eglibc-2.15/malloc/ > gdb.setup
 $ gdb program -c core -x gdb.setup
-endhighlight
+{% endhighlight %}
 
 but (if I understand it well...) it specifies a _single_ directory, not complete directory tree with all sources of a library that can be used easily by gdb.
 
