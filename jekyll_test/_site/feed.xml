@@ -152,11 +152,16 @@ and their paths that &lt;code&gt;gdb&lt;/code&gt; expects:&lt;/p&gt;
 
 &lt;p&gt;but (if I understand it well…) it specifies a &lt;em&gt;single&lt;/em&gt; directory, not complete directory tree with all sources of a library that can be used easily by gdb.&lt;/p&gt;
 
-&lt;p&gt;Useful related links:&lt;br /&gt;
-1. &lt;a href=&quot;https://www.debian.org/doc/manuals/maint-guide/advanced.en.html&quot;&gt;Debian maintainer’s guide&lt;/a&gt;&lt;br /&gt;
-2. &lt;a href=&quot;https://www.debian.org/doc/debian-policy/ch-sharedlibs.html&quot;&gt;Debian Policy Manual&lt;/a&gt;&lt;br /&gt;
-3. &lt;a href=&quot;http://www.thegeekstuff.com/2014/03/few-gdb-commands/&quot;&gt;Few GDB Commands – Debug Core, Disassemble, Load Shared Library (Blog article)&lt;/a&gt;&lt;br /&gt;
-4. &lt;a href=&quot;http://trail-of-a-programmer.blogspot.com/2014/11/make-system-library-source-code.html&quot;&gt;Make system library source code available to gdb on Ubuntu&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;useful-related-links&quot;&gt;Useful related links:&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.debian.org/doc/manuals/maint-guide/advanced.en.html&quot;&gt;Debian maintainer’s guide&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;https://www.debian.org/doc/debian-policy/ch-sharedlibs.html&quot;&gt;Debian Policy Manual&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://www.thegeekstuff.com/2014/03/few-gdb-commands/&quot;&gt;Few GDB Commands – Debug Core, Disassemble, Load Shared Library (Blog article)&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;http://trail-of-a-programmer.blogspot.com/2014/11/make-system-library-source-code.html&quot;&gt;Make system library source code available to gdb on Ubuntu&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;p&gt;https://sourceware.org/gdb/onlinedocs/gdb/Files.html&lt;br /&gt;
 https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html&lt;/p&gt;

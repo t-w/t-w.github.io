@@ -164,10 +164,11 @@ but (if I understand it well...) it specifies a _single_ directory, not complete
 
 
 Useful related links:
+---------------------
 1. [Debian maintainer's guide][1.]
-2. [Debian Policy Manual][2.]
-3. [Few GDB Commands – Debug Core, Disassemble, Load Shared Library (Blog article)][3.]
-4. [Make system library source code available to gdb on Ubuntu][4.]
++ [Debian Policy Manual][2.]
++ [Few GDB Commands – Debug Core, Disassemble, Load Shared Library (Blog article)][3.]
++ [Make system library source code available to gdb on Ubuntu][4.]
 
 [1.]: https://www.debian.org/doc/manuals/maint-guide/advanced.en.html
 [2.]: https://www.debian.org/doc/debian-policy/ch-sharedlibs.html
