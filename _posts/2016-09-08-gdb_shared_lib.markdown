@@ -1,15 +1,19 @@
 ---
 layout: post
-title: "Debugging inside shared libraries with GNU debugger (gdb)"
+title: "Debugging inside common shared libraries with GNU debugger (gdb)"
 date: 2016-09-08
 categories: debugging shared libraries gdb
 tags: debugging shared libraries gdb
 ---
-Since there seems to be no post with a reasonably condensed info on this topic
-(in kind of solution based format, not complete-and-hard-to-find-detail-you-need documentation)
-I thought gathering these misc. pieces might be useful.
+There seems to be no post with reasonably condensed information
+on this topic (in a solution/howto format, not
+complete-and-hard-to-find-details-you-need documentation),
+so I thought gathering these misc. pieces might be useful.
 
-To debug execution of your program _inside_ a shared library you need a bit more than just compiling it with `-g`. Let's see a simple case - a program using a call to a function from `SDL2_mixer`, as an example.
+To debug execution of your program _inside_ a shared library
+you need a bit more than just compiling it with `-g`.
+Let's see a simple case - a program using a call to a function
+from `SDL2_mixer`, as an example.
 
 Initially requesting step-into results in step-over:
 
