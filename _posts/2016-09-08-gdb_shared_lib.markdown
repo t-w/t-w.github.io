@@ -56,7 +56,7 @@ This leads us to the 2nd missing thing:
 
 We know more less how to get it ;-), eg.:
 
-{% highlight c %}
+{% highlight bash %}
 $ apt-get source libsdl2-mixer-dev
 {% endhighlight %}
 
@@ -83,7 +83,7 @@ Stack level 0, frame at 0x7fffffffe140:
 
 Since `libSDL2_mixer` is clearly dependent on `libSDL2` we can try:
 
-{% highlight c %}
+{% highlight bash %}
 $ apt-get install libsdl2-dbg
 {% endhighlight %}
 
@@ -109,7 +109,7 @@ Stack level 0, frame at 0x7fffffffe140:
 
 Finally gdb is informing us nicely where it expects the source code of the libraries - so we can provide it:
 
-{% highlight c %}
+{% highlight bash %}
 $ mkdir /tmp/buildd ; cd /tmp/buildd/
 $ apt-get source libsdl2-mixer-dev
 $ apt-get source libsdl2-dev
@@ -165,11 +165,11 @@ $ echo dir /var/tmp/sources/libc6/eglibc-2.15/malloc/ > gdb.setup
 $ gdb program -c core -x gdb.setup
 {% endhighlight %}
 
-but (if I understand it well...) it specifies a _single_ directory, not complete directory tree with all sources of a library that can be used easily by gdb.
+but (if I understand it well...) it specifies a _single directory_, not complete _directory tree_ with all sources of a library that can be used easily by gdb.
 
 
-Useful related links:
----------------------
+Useful related links
+--------------------
 1. [Debian maintainer's guide][1.]
 2. [Debian Policy Manual][2.]
 3. [Few GDB Commands – Debug Core, Disassemble, Load Shared Library (Blog article)][3.]
@@ -187,7 +187,8 @@ Useful related links:
 [6.]: https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html
 
 Misc.
-+  useful `gdb` commands
-    +  `(gdb) info sharedlibrary`
-    +  `(gdb) info sources`
-    +  `(gdb) info frame`
+-----
+*  useful `gdb` commands
+    *  `(gdb) info sharedlibrary`
+    *  `(gdb) info sources`
+    *  `(gdb) info frame`
