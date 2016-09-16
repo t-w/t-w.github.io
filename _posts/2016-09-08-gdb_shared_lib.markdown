@@ -23,7 +23,7 @@ and, well, that's not what we want...
 Two things are probably missing:
 debug information in the binary (library in this case), and the source code for it.
 
-1. Debug information for the library
+### Debug information for the library
 
 In case of Debian - you just have to install `libXYZ-dbg` package (where XYZ is the library you want to examine). So:
 
@@ -52,7 +52,7 @@ does not show any code...
 
 This leads us to the 2nd missing thing:
 
-2. The source code of the library
+### The source code of the library
 
 We know more less how to get it ;-), eg.:
 
@@ -78,7 +78,8 @@ Stack level 0, frame at 0x7fffffffe140:
  Saved registers:
   rip at 0x7fffffffe138
 {% endhighlight %}
-- and still no clue...
+
+-- and still no clue...
 
 Since `libSDL2_mixer` is clearly dependent on `libSDL2` we can try:
 
@@ -86,7 +87,7 @@ Since `libSDL2_mixer` is clearly dependent on `libSDL2` we can try:
 $ apt-get install libsdl2-dbg
 {% endhighlight %}
 
-- and now(!):
+-- and now(!):
 {% highlight c %}
 78              audio_mix_chunks[i] = Mix_LoadWAV(fname);
 (gdb) s
@@ -149,7 +150,7 @@ and their paths, as expected by `gdb`:
 (another looong list...)
 {% endhighlight %}
 
-- although it is necessary to go through a looong list of files.
+-- although it is necessary to go through a looong list of files.
 
 Information on the blog 4. suggests that it is possible also to specify gdb the directory with sources doing eg:
 
@@ -186,7 +187,7 @@ Useful related links:
 [6.]: https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html
 
 Misc.
-+ useful `gdb` commands
-    + `(gdb) info sharedlibrary`
-    + `(gdb) info sources`
-    + `(gdb) info frame`
++  useful `gdb` commands
+    +  `(gdb) info sharedlibrary`
+    +  `(gdb) info sources`
+    +  `(gdb) info frame`
