@@ -3,8 +3,8 @@
 	<channel>
 		<title>Blog Name</title>
 		<description>Software Developer</description>
-		<link>http://t-w.github.io/blog</link>
-		<atom:link href="http://t-w.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
+		<link>https://t-w.github.io/blog</link>
+		<atom:link href="https://t-w.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
 				<title>Debugging inside shared libraries with GNU debugger (gdb)</title>
@@ -170,8 +170,8 @@ https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html&lt;/p&gt;
 - (gdb) info sharedlibrary&lt;/p&gt;
 </description>
 				<pubDate>Thu, 08 Sep 2016 00:00:00 +0200</pubDate>
-				<link>http://t-w.github.io/blog/2016/09/gdb_shared_lib</link>
-				<guid isPermaLink="true">http://t-w.github.io/blog/2016/09/gdb_shared_lib</guid>
+				<link>https://t-w.github.io/blog/2016/09/gdb_shared_lib</link>
+				<guid isPermaLink="true">https://t-w.github.io/blog/2016/09/gdb_shared_lib</guid>
 			</item>
 		
 			<item>
@@ -191,8 +191,8 @@ To add new posts, simply add a file in the &lt;code&gt;_posts&lt;/code&gt; direc
 
 </description>
 				<pubDate>Wed, 07 Sep 2016 22:24:29 +0200</pubDate>
-				<link>http://t-w.github.io/blog/2016/09/welcome-to-jekyll</link>
-				<guid isPermaLink="true">http://t-w.github.io/blog/2016/09/welcome-to-jekyll</guid>
+				<link>https://t-w.github.io/blog/2016/09/welcome-to-jekyll</link>
+				<guid isPermaLink="true">https://t-w.github.io/blog/2016/09/welcome-to-jekyll</guid>
 			</item>
 		
 			<item>
@@ -225,8 +225,8 @@ To turn them on in the header of your post add:&lt;/p&gt;
 &lt;/ol&gt;
 </description>
 				<pubDate>Sun, 15 May 2016 18:25:06 +0200</pubDate>
-				<link>http://t-w.github.io/blog/2016/05/share-buttons</link>
-				<guid isPermaLink="true">http://t-w.github.io/blog/2016/05/share-buttons</guid>
+				<link>https://t-w.github.io/blog/2016/05/share-buttons</link>
+				<guid isPermaLink="true">https://t-w.github.io/blog/2016/05/share-buttons</guid>
 			</item>
 		
 			<item>
@@ -245,17 +245,17 @@ To turn them on in the header of your post add:&lt;/p&gt;
 
 &lt;p&gt;Here how it looks like on some portable devices:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://t-w.github.io/blog/images/iphone_portrait.PNG&quot; alt=&quot;My helpful screenshot&quot; class=&quot;center-image&quot; /&gt;&lt;em&gt;iPhone 5 portrait&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://t-w.github.io/blog/images/iphone_portrait.PNG&quot; alt=&quot;My helpful screenshot&quot; class=&quot;center-image&quot; /&gt;&lt;em&gt;iPhone 5 portrait&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://t-w.github.io/blog/images/iphone_landscape.PNG&quot; alt=&quot;My helpful screenshot&quot; class=&quot;center-image&quot; /&gt;&lt;em&gt;iPhone 5 landscape&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://t-w.github.io/blog/images/iphone_landscape.PNG&quot; alt=&quot;My helpful screenshot&quot; class=&quot;center-image&quot; /&gt;&lt;em&gt;iPhone 5 landscape&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://t-w.github.io/blog/images/ipad_portrait.PNG&quot; alt=&quot;My helpful screenshot&quot; class=&quot;center-image&quot; /&gt;&lt;em&gt;iPad mini portrait&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://t-w.github.io/blog/images/ipad_portrait.PNG&quot; alt=&quot;My helpful screenshot&quot; class=&quot;center-image&quot; /&gt;&lt;em&gt;iPad mini portrait&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://t-w.github.io/blog/images/ipad_landscape.PNG&quot; alt=&quot;My helpful screenshot&quot; class=&quot;center-image&quot; /&gt;&lt;em&gt;iPad mini landscape&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://t-w.github.io/blog/images/ipad_landscape.PNG&quot; alt=&quot;My helpful screenshot&quot; class=&quot;center-image&quot; /&gt;&lt;em&gt;iPad mini landscape&lt;/em&gt;&lt;/p&gt;
 </description>
 				<pubDate>Tue, 01 Dec 2015 17:25:06 +0100</pubDate>
-				<link>http://t-w.github.io/blog/2015/12/jekyll-clean-theme</link>
-				<guid isPermaLink="true">http://t-w.github.io/blog/2015/12/jekyll-clean-theme</guid>
+				<link>https://t-w.github.io/blog/2015/12/jekyll-clean-theme</link>
+				<guid isPermaLink="true">https://t-w.github.io/blog/2015/12/jekyll-clean-theme</guid>
 			</item>
 		
 			<item>
@@ -320,8 +320,8 @@ To turn them on in the header of your post add:&lt;/p&gt;
 &lt;code class=&quot;key&quot;&gt;Ctrl&lt;/code&gt; + &lt;code class=&quot;key&quot;&gt;R&lt;/code&gt; = finds the last command matching the entered letters.&lt;/p&gt;
 </description>
 				<pubDate>Mon, 02 Nov 2015 17:25:06 +0100</pubDate>
-				<link>http://t-w.github.io/blog/2015/11/text-formatting</link>
-				<guid isPermaLink="true">http://t-w.github.io/blog/2015/11/text-formatting</guid>
+				<link>https://t-w.github.io/blog/2015/11/text-formatting</link>
+				<guid isPermaLink="true">https://t-w.github.io/blog/2015/11/text-formatting</guid>
 			</item>
 		
 			<item>
@@ -357,8 +357,8 @@ respective owners:&lt;/p&gt;
 &lt;/ul&gt;
 </description>
 				<pubDate>Sun, 01 Nov 2015 17:25:06 +0100</pubDate>
-				<link>http://t-w.github.io/blog/2015/11/installation</link>
-				<guid isPermaLink="true">http://t-w.github.io/blog/2015/11/installation</guid>
+				<link>https://t-w.github.io/blog/2015/11/installation</link>
+				<guid isPermaLink="true">https://t-w.github.io/blog/2015/11/installation</guid>
 			</item>
 		
 			<item>
@@ -368,7 +368,7 @@ respective owners:&lt;/p&gt;
 &lt;p&gt;This theme supports two types of images:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;inline images: &lt;img src=&quot;http://t-w.github.io/blog/images/batWid1.png&quot; alt=&quot;Battery Widget&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;inline images: &lt;img src=&quot;https://t-w.github.io/blog/images/batWid1.png&quot; alt=&quot;Battery Widget&quot; /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;![Battery Widget]({{ site.url | append:site.baseurl }}/images/batWid1.png)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -377,7 +377,7 @@ respective owners:&lt;/p&gt;
   &lt;li&gt;centered images with caption (optionally):&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://t-w.github.io/blog/images/iphone_landscape.PNG&quot; alt=&quot;screenshot&quot; class=&quot;center-image&quot; /&gt;&lt;em&gt;iPhone 5 landscape&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://t-w.github.io/blog/images/iphone_landscape.PNG&quot; alt=&quot;screenshot&quot; class=&quot;center-image&quot; /&gt;&lt;em&gt;iPhone 5 landscape&lt;/em&gt;&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;![screenshot]({{ site.baseurl | prepend:site.url}}/images/iphone_landscape.PNG){: .center-image }*iPhone 5 landscape*&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
@@ -394,8 +394,8 @@ respective owners:&lt;/p&gt;
 
 </description>
 				<pubDate>Thu, 01 Oct 2015 18:25:06 +0200</pubDate>
-				<link>http://t-w.github.io/blog/2015/10/images</link>
-				<guid isPermaLink="true">http://t-w.github.io/blog/2015/10/images</guid>
+				<link>https://t-w.github.io/blog/2015/10/images</link>
+				<guid isPermaLink="true">https://t-w.github.io/blog/2015/10/images</guid>
 			</item>
 		
 			<item>
@@ -455,8 +455,8 @@ respective owners:&lt;/p&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
 				<pubDate>Tue, 01 Sep 2015 18:25:06 +0200</pubDate>
-				<link>http://t-w.github.io/blog/2015/09/code-syntax-highlighting</link>
-				<guid isPermaLink="true">http://t-w.github.io/blog/2015/09/code-syntax-highlighting</guid>
+				<link>https://t-w.github.io/blog/2015/09/code-syntax-highlighting</link>
+				<guid isPermaLink="true">https://t-w.github.io/blog/2015/09/code-syntax-highlighting</guid>
 			</item>
 		
 			<item>
@@ -488,8 +488,8 @@ respective owners:&lt;/p&gt;
 &lt;p&gt;To enable &lt;a href=&quot;http://disqus.com&quot;&gt;Disqus&lt;/a&gt; register on the site and then just put your name in &lt;code&gt;_config.xml&lt;/code&gt;. Comments could be switched on and off on per post basis, just put &lt;code&gt;comments: true&lt;/code&gt; to enable them.&lt;/p&gt;
 </description>
 				<pubDate>Sat, 01 Aug 2015 18:25:06 +0200</pubDate>
-				<link>http://t-w.github.io/blog/2015/08/analytics-tags-comments</link>
-				<guid isPermaLink="true">http://t-w.github.io/blog/2015/08/analytics-tags-comments</guid>
+				<link>https://t-w.github.io/blog/2015/08/analytics-tags-comments</link>
+				<guid isPermaLink="true">https://t-w.github.io/blog/2015/08/analytics-tags-comments</guid>
 			</item>
 		
 			<item>
@@ -514,7 +514,7 @@ Out-of-the box it has: &lt;/p&gt;
     &lt;a title=&quot;Last.fm&quot; href=&quot;http://lastfm.com/user/&quot; target=&quot;_blank&quot;&gt;&lt;i class=&quot;fa fa-lastfm fa-2x&quot;&gt;&lt;/i&gt;&lt;/a&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;a title=&quot;RSS&quot; href=&quot;http://t-w.github.io/feed.xml&quot; target=&quot;_blank&quot;&gt;&lt;i class=&quot;fa fa-rss fa-2x&quot;&gt;&lt;/i&gt;&lt;/a&gt;
+    &lt;a title=&quot;RSS&quot; href=&quot;https://t-w.github.io/feed.xml&quot; target=&quot;_blank&quot;&gt;&lt;i class=&quot;fa fa-rss fa-2x&quot;&gt;&lt;/i&gt;&lt;/a&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -538,8 +538,8 @@ Out-of-the box it has: &lt;/p&gt;
 
 </description>
 				<pubDate>Wed, 01 Jul 2015 18:25:06 +0200</pubDate>
-				<link>http://t-w.github.io/blog/2015/07/social-icons</link>
-				<guid isPermaLink="true">http://t-w.github.io/blog/2015/07/social-icons</guid>
+				<link>https://t-w.github.io/blog/2015/07/social-icons</link>
+				<guid isPermaLink="true">https://t-w.github.io/blog/2015/07/social-icons</guid>
 			</item>
 		
 	</channel>
