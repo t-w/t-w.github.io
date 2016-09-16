@@ -173,9 +173,9 @@ Useful related links:
 2. [Debian Policy Manual][2.]
 3. [Few GDB Commands – Debug Core, Disassemble, Load Shared Library (Blog article)][3.]
 4. [Make system library source code available to gdb on Ubuntu][4.]
-5. GDB docs:
-    - (Files)[https://sourceware.org/gdb/onlinedocs/gdb/Files.html]
-    - (Separate Debug Files)[https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html]
+5. Related GDB docs:
+    - [Commands to specify files][https://sourceware.org/gdb/onlinedocs/gdb/Files.html]
+    - [Debugging Information in Separate Files][https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html]
 
 
 [1.]: https://www.debian.org/doc/manuals/maint-guide/advanced.en.html
@@ -185,7 +185,7 @@ Useful related links:
 
 
 Misc.
-- useful `gdb` commands
-    - `(gdb) info sharedlibrary`
-    - `(gdb) info sources`
-    - `(gdb) info frame`
++ useful `gdb` commands
+    + `(gdb) info sharedlibrary`
+    + `(gdb) info sources`
+    + `(gdb) info frame`
