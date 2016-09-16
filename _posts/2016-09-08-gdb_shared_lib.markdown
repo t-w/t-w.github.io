@@ -51,8 +51,9 @@ Mix_LoadWAV_RW (src=0x7fffffffe270, freesrc=4203968) at mixer.c:573
 {% endhighlight %}
 
 Now, we can see the line number and the name of the source file - but gdb
-does not show any code... This way we have arrived to another code module,
-which is a part of dynamically linked `SDL2_mixer` library.
+does not show any code... In this case the reason is that this external code
+is not a part of our code, but is one of the sources of a dynamically linked
+library (here `SDL2_mixer`).
 
 This leads us to the 2nd missing thing:
 
