@@ -24,8 +24,9 @@ Two things are probably missing:
 debug information in the binary (library in this case), and the source code for it.
 
 1. Debug information for the library
+
 In case of Debian - you just have to install `libXYZ-dbg` package (where XYZ is the library you want to examine). So:
-{% highlight c %}
+{% highlight bash %}
 $ aptitude install libsdl2-mixer-dbg
 {% endhighlight %}
 
