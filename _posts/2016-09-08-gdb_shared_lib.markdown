@@ -11,7 +11,7 @@ complete-and-hard-to-find-details-you-need documentation),
 so I thought gathering these misc. pieces might be useful.
 
 To debug execution of your program _inside_ a shared library
-you need a bit more than just compiling it with `-g`.
+we need a bit more than just compiling it with `-g`.
 Let's see a simple case - a program using a call to a function
 from `SDL2_mixer`, as an example.
 
@@ -50,10 +50,9 @@ Mix_LoadWAV_RW (src=0x7fffffffe270, freesrc=4203968) at mixer.c:573
 596     in mixer.c
 {% endhighlight %}
 
-We have arrived to another code module, which is a part of dynamically linked `libSDL2_mixer`.
-
 Now, we can see the line number and the name of the source file - but gdb
-does not show any code...
+does not show any code... This way we have arrived to another code module,
+which is a part of dynamically linked `SDL2_mixer` library.
 
 This leads us to the 2nd missing thing:
 
