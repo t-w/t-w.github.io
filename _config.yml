@@ -1,7 +1,7 @@
 # Site settings
-title: Soft notes (uBlog)
+title: Messy notes (uBlog)
 #email: your-email@domain.com
-description: "Messy notes on software/programming matters."
+description: "Messy notes on software/programming."
 baseurl: ""
 url: "http://t-w.github.io"
 #twitter_username: jekyllrb
