@@ -6,9 +6,9 @@ categories: software development debugging shared libraries gdb
 ---
 Since there seems to be no post with a reasonably condensed info on this topic
 (in kind of solution based format, not complete-and-hard-to-find-detail-you-need documentation)
-I thought gathering these misc. pieces might be useful for others.
+I thought gathering these misc. pieces might be useful.
 
-Debugging execution of your program INSIDE a shared library you need a bit more than just compiling it with `-g`. Let's see a simple case - a program using a call to a function from `SDL2_mixer`, as an example.
+To debug execution of your program _inside_ a shared library you need a bit more than just compiling it with `-g`. Let's see a simple case - a program using a call to a function from `SDL2_mixer`, as an example.
 
 Initially requesting step-into results in step-over:
 
@@ -18,10 +18,9 @@ Initially requesting step-into results in step-over:
 80              if (audio_mix_chunks[i] == NULL)
 {% endhighlight %}
 
+and, well, that's not what we want...
 
-Well, that's not what we want...
-
-Author's newbie experience leads to conclusion that two things are probably missing:
+Two things are probably missing:
 debug information in the binary (library in this case), and the source code for it.
 
 1. Debug information for the library
