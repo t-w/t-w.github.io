@@ -2,7 +2,8 @@
 layout: post
 title: "Debugging inside shared libraries with GNU debugger (gdb)"
 date: 2016-09-08
-categories: software development debugging shared libraries gdb
+categories: debugging shared libraries gdb
+tags: debugging shared libraries gdb
 ---
 Since there seems to be no post with a reasonably condensed info on this topic
 (in kind of solution based format, not complete-and-hard-to-find-detail-you-need documentation)
