@@ -157,7 +157,7 @@ and their paths, as expected by `gdb`:
 
 -- although it is necessary to go through a looong list of files.
 
-Information on the blog 4. suggests that it is possible also to specify gdb the directory with sources doing eg:
+Information on [another blog][4.] suggests that it is possible also to specify gdb the directory with sources doing eg:
 
 {% highlight c %}
 (gdb) dir /var/tmp/sources/libc6/eglibc-2.15/malloc/
