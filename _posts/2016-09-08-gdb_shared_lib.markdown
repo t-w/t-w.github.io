@@ -26,11 +26,12 @@ debug information in the binary (library in this case), and the source code for 
 1. Debug information for the library
 
 In case of Debian - you just have to install `libXYZ-dbg` package (where XYZ is the library you want to examine). So:
+
 {% highlight bash %}
 $ aptitude install libsdl2-mixer-dbg
 {% endhighlight %}
 
-and we have now:
+and we have:
 
 {% highlight c %}
 (gdb) s
@@ -44,9 +45,10 @@ Mix_LoadWAV_RW (src=0x7fffffffe270, freesrc=4203968) at mixer.c:573
 596     in mixer.c
 {% endhighlight %}
 
-We have arrived to another code module, part of dynamically linked `libSDL2_mixer`.
+We have arrived to another code module, which is a part of dynamically linked `libSDL2_mixer`.
 
-Now, we can the the line number and the name of the source file, but gdb does not show any code...
+Now, we can see the line number and the name of the source file - but gdb
+does not show any code...
 
 This leads us to the 2nd missing thing:
 
@@ -78,7 +80,7 @@ Stack level 0, frame at 0x7fffffffe140:
 {% endhighlight %}
 - and still no clue...
 
-Since `libSDL2_mixer` is clearly dependent on `libSDL2` I decide to try:
+Since `libSDL2_mixer` is clearly dependent on `libSDL2` we can try:
 
 {% highlight c %}
 $ apt-get install libsdl2-dbg
@@ -112,7 +114,7 @@ $ apt-get source libsdl2-mixer-dev
 $ apt-get source libsdl2-dev
 {% endhighlight %}
 
-This time we should see what's inside the libraru, for example:
+This time we should see what's inside the library, for instance:
 
 {% highlight c %}
 78              audio_mix_chunks[i] = Mix_LoadWAV(fname);
@@ -134,8 +136,8 @@ SDL_RWFromFile_REAL (file=0x7fffffffe160 "data/snd/S00.wav", mode=0x43b7bf "rb")
 528             if (fp == NULL) {
 {% endhighlight %}
 
-Later I learned that there is another (better!) way to find out the source files
-and their paths that `gdb` expects:
+There is also another (better!) way to find out the source files
+and their paths, as expected by `gdb`:
 
 {% highlight c %}
 (gdb) info sources
@@ -146,6 +148,8 @@ and their paths that `gdb` expects:
 
 (another looong list...)
 {% endhighlight %}
+
+- although it is necessary to go through a looong list of files.
 
 Information on the blog 4. suggests that it is possible also to specify gdb the directory with sources doing eg:
 
@@ -166,9 +170,13 @@ but (if I understand it well...) it specifies a _single_ directory, not complete
 Useful related links:
 ---------------------
 1. [Debian maintainer's guide][1.]
-+ [Debian Policy Manual][2.]
-+ [Few GDB Commands – Debug Core, Disassemble, Load Shared Library (Blog article)][3.]
-+ [Make system library source code available to gdb on Ubuntu][4.]
+# [Debian Policy Manual][2.]
+# [Few GDB Commands – Debug Core, Disassemble, Load Shared Library (Blog article)][3.]
+# [Make system library source code available to gdb on Ubuntu][4.]
+# GDB docs:
+    - [https://sourceware.org/gdb/onlinedocs/gdb/Files.html]
+    - [https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html]
+
 
 [1.]: https://www.debian.org/doc/manuals/maint-guide/advanced.en.html
 [2.]: https://www.debian.org/doc/debian-policy/ch-sharedlibs.html
@@ -176,9 +184,8 @@ Useful related links:
 [4.]: http://trail-of-a-programmer.blogspot.com/2014/11/make-system-library-source-code.html
 
 
-https://sourceware.org/gdb/onlinedocs/gdb/Files.html
-https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html
-
-
 Misc.
-- (gdb) info sharedlibrary
+- useful `gdb` commands
+    - `(gdb) info sharedlibrary`
+    - `(gdb) info sources`
+    - `(gdb) info frame`
