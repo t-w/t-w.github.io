@@ -182,8 +182,8 @@ Useful related links:
 [2.]: https://www.debian.org/doc/debian-policy/ch-sharedlibs.html
 [3.]: http://www.thegeekstuff.com/2014/03/few-gdb-commands/
 [4.]: http://trail-of-a-programmer.blogspot.com/2014/11/make-system-library-source-code.html
-[5.]: [https://sourceware.org/gdb/onlinedocs/gdb/Files.html]
-[6.]: https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html]
+[5.]: https://sourceware.org/gdb/onlinedocs/gdb/Files.html
+[6.]: https://sourceware.org/gdb/onlinedocs/gdb/Separate-Debug-Files.html
 
 Misc.
 + useful `gdb` commands
