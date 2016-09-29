@@ -1,15 +1,15 @@
 ---
 layout: post
-title: "Debugging tools"
-date: 2016-09-08
-categories: debugging tools
-tags: debugging tools
+title: "Software debugging tools"
+date: 2016-09-28
+categories: software debugging tools
+tags: software debugging tools
 ---
-Another info gather post, this time about misc. debugging and reverse engineering tools
-(debuggers, tracers, call loggers, network sniffers etc.)
-Just a messy (and unfinished) list for now (more maybe later...)
+Another info gather post, this time about misc. debugging and reverse engineering
+software tools (debuggers, tracers, call loggers, network sniffers etc.)
+Just a messy (and unfinished) list for now (may be updated later...)
 
-### Debugging tools
+### Software debugging tools
 
 U-xs (GNU/Linux, *BSD, ...):
 
@@ -48,7 +48,7 @@ Windows:
 ### Other bin utils
 - objdump
 - nm
-- elf
+- elfedit
 - strip
 
 ### Links
