@@ -12,6 +12,7 @@ Just a messy (and unfinished) list for now (more maybe later...)
 ### Debugging tools
 
 U-xs (GNU/Linux, *BSD, ...):
+
 - gdb, ddd
 - strace, ktrace, ltrace, ftrace, latrace, mutextrace, xtrace
 - LTT (Linux Trace Toolkit) / LTTng: trace, traceview
@@ -25,6 +26,7 @@ U-xs (GNU/Linux, *BSD, ...):
 - kdump
 
 Windows:
+
 - sysinternals tools: filemon, process explorer, ...
 - SoftICE (DOS, Win31, 95, .. , XP)
 - OllyDbg
