@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "A toolchain for Maemo"
+title: "Toolchains for Maemo"
 date: 2016-09-29
 categories: cross-compilation toolchain arm n900 maemo
 tags: cross-compilation toolchain arm n900 maemo
@@ -17,7 +17,7 @@ Apparently there are several, working in slightly (or significantly) different w
 
 1. Scratchbox
 2. [Scratchbox2][sb2.1] ([git repo archive][sb2.2]
-on ([gitorious archive][gitorious] which contains lots of N900/Maemo related projects)
+on [gitorious archive][gitorious] which contains lots of N900/Maemo related projects)
 3. [Maemo SDK+][sdk+.1] (based on Scratchbox2)
 4. [Sourcery CodeBench][codebench.1]
 
