@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "A toolchain for Maemo"
-date: 2016-09-28
+date: 2016-09-29
 categories: cross-compilation toolchain arm n900 maemo
 tags: cross-compilation toolchain arm n900 maemo
 ---
