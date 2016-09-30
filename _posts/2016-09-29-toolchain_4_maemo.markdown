@@ -23,17 +23,19 @@ on [gitorious archive][gitorious] which contains lots of N900/Maemo related proj
 
 ### Related tutorials / documents / presentations
 - [The Scratchbox development environment][sb.doc.1]
+- [Scratchbox FAQ][sb.faq]
 
 ### Other links
 - [maemo.org/development/][maemo.org.dev]
 
 
-[sb.1]: http://scratchbox.org/
-[sb.doc.1]: http://free-electrons.com/docs/scratchbox/
-[sb2.1]: (scratchbox2 homepage)
-[sb2.2]: https://gitorious.org/scratchbox2/scratchbox2.git
-[gitorious]: https://gitorious.org/
-[sdk+.1]: http://maemo-sdk.garage.maemo.org/
-[codebench.1]: https://www.mentor.com/embedded-software/sourcery-tools/sourcery-codebench/editions/lite-edition/
+[sb.1]:          http://scratchbox.org/
+[sb.faq]:        http://scratchbox.org/faq/
+[sb.doc.1]:      http://free-electrons.com/docs/scratchbox/
+[sb2.1]:         (scratchbox2 homepage)
+[sb2.2]:         https://gitorious.org/scratchbox2/scratchbox2.git
+[gitorious]:     https://gitorious.org/
+[sdk+.1]:        http://maemo-sdk.garage.maemo.org/
+[codebench.1]:   https://www.mentor.com/embedded-software/sourcery-tools/sourcery-codebench/editions/lite-edition/
 [maemo.org.dev]: http://maemo.org/development/
 
