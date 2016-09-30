@@ -22,8 +22,10 @@ on [gitorious archive][gitorious] which contains lots of N900/Maemo related proj
 4. [Sourcery CodeBench][codebench.1]
 
 ### Related tutorials / documents / presentations
+- [The Scratchbox development environment][sb.doc.1]
 
-- The Scratchbox development environment][sb.doc.1]
+### Other links
+- [maemo.org/development/][maemo.org.dev]
 
 
 [sb.1]: http://scratchbox.org/
@@ -33,5 +35,5 @@ on [gitorious archive][gitorious] which contains lots of N900/Maemo related proj
 [gitorious]: https://gitorious.org/
 [sdk+.1]: http://maemo-sdk.garage.maemo.org/
 [codebench.1]: https://www.mentor.com/embedded-software/sourcery-tools/sourcery-codebench/editions/lite-edition/
-
+[maemo.org.dev]: http://maemo.org/development/
 
