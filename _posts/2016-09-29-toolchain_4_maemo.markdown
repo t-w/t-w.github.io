@@ -21,8 +21,13 @@ on [gitorious archive][gitorious] which contains lots of N900/Maemo related proj
 3. [Maemo SDK+][sdk+.1] (based on Scratchbox2)
 4. [Sourcery CodeBench][codebench.1]
 
+### Related tutorials / documents / presentations
 
-[sb.1]: (scratchbox homepage)
+- The Scratchbox development environment][sb.doc.1]
+
+
+[sb.1]: http://scratchbox.org/
+[sb.doc.1]: http://free-electrons.com/docs/scratchbox/
 [sb2.1]: (scratchbox2 homepage)
 [sb2.2]: https://gitorious.org/scratchbox2/scratchbox2.git
 [gitorious]: https://gitorious.org/
