@@ -15,7 +15,7 @@ which is the best one (can do what I need, is reasonable to use ;)
 Apparently there are several, working in slightly (or significantly) different way
 (the same with features they offer). So what's available:
 
-1. Scratchbox
+1. [Scratchbox][sb.1]
 2. [Scratchbox2][sb2.1] ([git repo archive][sb2.2]
 on [gitorious archive][gitorious] which contains lots of N900/Maemo related projects)
 3. [Maemo SDK+][sdk+.1] (based on Scratchbox2)
