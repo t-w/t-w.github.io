@@ -20,6 +20,7 @@ Apparently there are several, working in slightly (or significantly) different w
 on [gitorious archive][gitorious] which contains lots of N900/Maemo related projects)
 3. [Maemo SDK+][sdk+.1] (based on Scratchbox2)
 4. [Sourcery CodeBench][codebench.1]
+5. [Maemo5 "final" SDK][maemo.org.sdk]
 
 ### Related tutorials / documents / presentations
 - [The Scratchbox development environment][sb.doc.1]
@@ -38,4 +39,4 @@ on [gitorious archive][gitorious] which contains lots of N900/Maemo related proj
 [sdk+.1]:        http://maemo-sdk.garage.maemo.org/
 [codebench.1]:   https://www.mentor.com/embedded-software/sourcery-tools/sourcery-codebench/editions/lite-edition/
 [maemo.org.dev]: http://maemo.org/development/
-
+[maemo.org.sdk]: http://wiki.maemo.org/Documentation/Maemo_5_Final_SDK_Installation
