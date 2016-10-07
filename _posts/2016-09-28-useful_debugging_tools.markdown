@@ -14,16 +14,20 @@ Just a messy (and unfinished) list for now (may be updated later...)
 U-xs (GNU/Linux, *BSD, ...):
 
 - gdb, ddd
-- strace, ktrace, ltrace, ftrace, latrace, mutextrace, xtrace
+- strace, ktrace, ltrace, ftrace, latrace, mutextrace, xtrace, etrace
 - LTT (Linux Trace Toolkit) / LTTng: trace, traceview
 - truss, sotruss
+- gprof (call graph profile data)
+- valgrind
 - dtrace
 - systemtap
 - dprobes, kprobes
+- perf-tools (kprobe, io/open/execsnoop, functrace, ...)
 - ptrace, python-ptrace
 - cheat engine (for games but not only...)
 - debugfs
 - kdump
+
 
 Windows:
 
