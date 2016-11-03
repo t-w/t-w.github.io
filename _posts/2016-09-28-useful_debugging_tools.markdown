@@ -27,7 +27,7 @@ U-xs (GNU/Linux, *BSD, ...):
 - cheat engine (for games but not only...)
 - debugfs
 - kdump
-
+- gcore (dumping process mem / core)
 
 Windows:
 
