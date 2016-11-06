@@ -14,19 +14,18 @@ access to definitions, still [it does not provide way to find all occurences
 of a variable or a function][ctags]. So I was stuck with grep and friends...
 
 Today accidentally I have found [this post][cscope.stackex] with one but great answer,
-giving in several lines solution I was looking for. Basically instead of ctags/etags
+which in several lines provided me solution I was looking for. Basically instead of ctags/etags
 it is better to use GNU Global with ggtags (or helm-gtags).
 I just had to do few simple steps:
 
 - install gnu global (in Debian `$ apt-get install global`)
-
-- install [MELPA][melpa] following [instruction][melpa.install]
+- install [MELPA][melpa] following [the instruction][melpa.install]
 - having MELPA in my Emacs I could do `package-list-packages` and having packages list
   select and install `ggtags`
 
 And that's all.
 
-If everything went find then you should have new commands in Emacs starting from `ggtags-`
+If everything went fine then you have new commands in Emacs starting from `ggtags-`
 
 So a test - I chose some medium project in C and tried:
 
@@ -44,7 +43,7 @@ Big thanks for [tuhdo] who's info pages are really great help!
 
 # Related links
 - [CScope and Emacs][cscope_emacs]
-
+- [C/C++ IDE in Emacs][c-ide.emacs]
 
 [ctags]:          http://stackoverflow.com/questions/30753882/how-to-use-ctags-to-list-all-the-references-of-a-symboltag-in-vim
 [cscope.stackex]: http://emacs.stackexchange.com/questions/9499/emacs-cscope-integration-basics
@@ -52,3 +51,4 @@ Big thanks for [tuhdo] who's info pages are really great help!
 [melpa.install]:  http://melpa.org/#/getting-started
 [tuhdo]:          http://tuhdo.github.io/index.html
 [cscope_emacs]:   https://www.emacswiki.org/emacs/CScopeAndEmacs
+[c-ide.emacs]:    http://tuhdo.github.io/c-ide.html
