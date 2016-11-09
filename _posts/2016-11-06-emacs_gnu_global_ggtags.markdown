@@ -40,10 +40,16 @@ allowing easily to navigate between them all!
 ### Credits
 Big thanks for [tuhdo] who's info pages are really great help!
 
+### Update
+There are other possibilities to install ggtags from other Emacs package
+repositories, ie. [ELPA][elpa.ggtags].
+(Actually it would be nice if it was included as .deb in debian ;-)
 
 # Related links
 - [CScope and Emacs][cscope_emacs]
 - [C/C++ IDE in Emacs][c-ide.emacs]
+- [Post about Emacs package repositories][elpa_melpa] 
+
 
 [ctags]:          http://stackoverflow.com/questions/30753882/how-to-use-ctags-to-list-all-the-references-of-a-symboltag-in-vim
 [cscope.stackex]: http://emacs.stackexchange.com/questions/9499/emacs-cscope-integration-basics
@@ -52,3 +58,6 @@ Big thanks for [tuhdo] who's info pages are really great help!
 [tuhdo]:          http://tuhdo.github.io/index.html
 [cscope_emacs]:   https://www.emacswiki.org/emacs/CScopeAndEmacs
 [c-ide.emacs]:    http://tuhdo.github.io/c-ide.html
+[elpa_melpa]:     http://emacs.stackexchange.com/questions/268/what-are-the-practical-differences-between-the-various-emacs-package-repositorie
+[elpa.ggtags]:    https://elpa.gnu.org/packages/ggtags.html
+
