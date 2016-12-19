@@ -16,7 +16,7 @@ Apparently there are several, working in slightly (or significantly) different w
 (the same with features they offer). So what's available:
 
 1. [Scratchbox][sb.1]
-2. [Scratchbox2][sb2.1] ([git repo archive][sb2.2]
+2. [Scratchbox2][sb2.1] [git repo archive][sb2.2]
 on [gitorious archive][gitorious] which contains lots of N900/Maemo related projects)
 3. [Maemo SDK+][sdk+.1] (based on Scratchbox2)
 4. [Sourcery CodeBench][codebench.1]
@@ -33,7 +33,7 @@ on [gitorious archive][gitorious] which contains lots of N900/Maemo related proj
 [sb.1]:          http://scratchbox.org/
 [sb.faq]:        http://scratchbox.org/faq/
 [sb.doc.1]:      http://free-electrons.com/docs/scratchbox/
-[sb2.1]:         (scratchbox2 homepage)
+[sb2.1]:         https://www.freedesktop.org/wiki/Software/sbox2/
 [sb2.2]:         https://gitorious.org/scratchbox2/scratchbox2.git
 [gitorious]:     https://gitorious.org/
 [sdk+.1]:        http://maemo-sdk.garage.maemo.org/
