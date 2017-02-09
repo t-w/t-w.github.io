@@ -14,6 +14,7 @@ Just a messy (and unfinished) list for now (may be updated later...)
 U-xs (GNU/Linux, *BSD, ...):
 
 - gdb, ddd
+- pstack
 - strace, ktrace, ltrace, ftrace, latrace, mutextrace, xtrace, etrace
 - LTT (Linux Trace Toolkit) / LTTng: trace, traceview
 - truss, sotruss
@@ -40,9 +41,10 @@ Windows:
 - tcpdump
 - wireshark
 
-### Disassemblers, hex editors
+### Disassemblers, hex editors, analysers
 - IDA (Interactive disassembler) (and IDA Pro - commercial...)
 - Biew / Beye (u-x), Hiew (DOS / Windows)
+- ht
 
 ### Decompilers
 - [Boomerang][5.1.]
