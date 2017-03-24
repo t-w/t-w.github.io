@@ -12,18 +12,15 @@ with optimization, eg. with `gcc -O3`):
 
 "To debug optimized code, learn assembly/machine language.
 
-Use the GDB TUI mode. My copy of GDB enables it when I type the minus and Enter. Then type C-x 2 (that is hold down Control and press X, release both and then press 2). That will put it into split source and disassembly display. Then use stepi and nexti to move one machine instruction at a time. Use C-x o to switch between the TUI windows.
+Use the GDB TUI mode. My copy of GDB enables it when I type the minus and Enter. Then type `C-x 2` (that is hold down `Control` and press `X`, release both and then press `2`). That will put it into split source and disassembly display. Then use `stepi` and `nexti` to move one machine instruction at a time. Use `C-x o` to switch between the TUI windows.
 
 Download a PDF about your CPU's machine language and the function calling conventions. You will quickly learn to recognize what is being done with function arguments and return values.
 
-You can display the value of a register by using a GDB command like p $eax"
+You can display the value of a register by using a GDB command like `p $eax`"
 
-### Useful commands:
+### Useful GDB commands:
 - `info registers`
 
-
-# Related links
-- [Info on Stack Overflow][answer]
 
 [answer]:         http://stackoverflow.com/questions/1345338/gdb-behavior-value-optimized-out#
 [optimout]:       http://stackoverflow.com/questions/5497855/what-does-value-optimized-out-mean-in-gdb
