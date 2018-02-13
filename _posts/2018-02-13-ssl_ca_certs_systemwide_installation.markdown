@@ -5,7 +5,7 @@ date: 2018-02-13
 categories: ssl ca certificate
 tags: ssl ca certificate installation system-wide
 ---
-Using SSL (ie. OpenSSL) in your programs (or tools like curl) with services securing
+Using SSL (ie. OpenSSL) in your programs (or tools like `curl`) with services securing
 communication with certificates issued by some local Certificate Authority requires
 providing these CA certificates. Providing them separatetly for each program is possible
 but kind of annoying, it might be easier to install them once, in some system-wide way.
@@ -19,15 +19,15 @@ the same / very similar on others):
 
 1. Get the file the CA certificate in PEM format and store in an empty directory
 2. Generate proper hash-named symbolic link for the certificate file(s) either doing
-$ ln -s a_ca_cert.crt `openssl x509 -hash -noout -in a_ca_cert.crt`.0
-or using the c_rehash tool (available with OpenSSL, at least on Debian...) specifying
+`$ ln -s a_ca_cert.crt ``openssl x509 -hash -noout -in a_ca_cert.crt``.0`
+or using the `c_rehash` tool (available with OpenSSL, at least on Debian...) specifying
 the directory where the tools should look for the cert. files and generate
 the hashed-named sym-links.
-3. Copy the certificate file(s) and symbolic links to /etc/ssl/certs/ (and set properly
-permissions like chown 0.0 and chmod 644)
+3. Copy the certificate file(s) and symbolic links to `/etc/ssl/certs/` (and set properly
+permissions like `chown 0.0` and `chmod 644`)
 4. (optional) If you use some program in Java / Mono / ? you may want also to update their
 keystores. If you are using a Debian(like?) Linux distribution it might be sufficient to 
-execute: $ update-ca-certificates
+execute: `$ update-ca-certificates`
 to do this.
 
 For the curl use the -v option in case on any problem, you can also strace it to see
