@@ -7,7 +7,8 @@ tags: ssl ca certificate installation system-wide
 ---
 Using SSL (ie. OpenSSL) in your programs (or with tools like `curl`) with
 services securing communication with certificates issued by some local
-Certificate Authority requires providing these CA certificates. Providing them
+Certificate Authority requires providing these CA certificates (clearly
+for validating the service that we are connecting to). Providing them
 separatetly for each program is possible but kind of annoying, it might be
 easier to install them once, in some system-wide way.
 They will be also protected with sysadmin rights and cannot be replaced easily.
@@ -26,13 +27,13 @@ specifying the directory where the tools should look for the cert. files and
 generate the hash-named sym-links.
 3. Copy the certificate file(s) and symbolic links to `/etc/ssl/certs/`
 (and set properly permissions like `chown 0.0` and `chmod 644`)
-4. (optional) If you use some program in Java / Mono / ? you may want also to
-update their keystores. If you are using a Debian(like?) Linux distribution
+4. (optional) If you use some program in Java / Mono / ... you may want also
+to update their keystores. If you are using a Debian(like?) Linux distribution
 it might be sufficient to execute: `$ update-ca-certificates` to do this.
 
-For the curl use the -v option in case on any problem, you can also strace it
-to see the name of the symlink it is reading (or trying to read) while verifying
-the certificate of a service.
+For the curl you can use the -v option in case on any problem. You can also
+`strace` it to see the name of the symlink it is reading (or trying to read)
+while verifying the certificate of a service.
 
 
 ### Useful links
