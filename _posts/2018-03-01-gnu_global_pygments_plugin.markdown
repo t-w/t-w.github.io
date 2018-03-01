@@ -15,11 +15,11 @@ for Python) to extract tags. This means that any language supported by Pygments
 (there is a lot) can be used also with GNU global (and with GGtags - in Emacs!).
 
 Installation is pretty straightforward, just follow the procedure
-(I have additionally built a .deb package with checkinstall), create .globalrc
-(eg. sample provided is working well) - and that's it.
+(I have additionally built a `.deb` package with checkinstall), create
+`.globalrc` (eg. sample provided is working well) - and that's it.
 
 For the moment I use this with Python - works great.
 
-[emacs.ggtags]:   https://t-w.github.io/emacs/2016/11/06/emacs_gnu_global_ggtags/
+[emacs.ggtags]: https://t-w.github.io/emacs/2016/11/06/emacs_gnu_global_ggtags/
 [global_pygments_plugin]: https://github.com/yoshizow/global-pygments-plugin
-[pygments]:       http://pygments.org/
+[pygments]:     http://pygments.org/
