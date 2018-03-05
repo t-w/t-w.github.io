@@ -63,6 +63,10 @@ Windows:
 - [Wikipedia, Category: Debugging][2.]
 - [Sysinternals][6.]
 
+Related talks:
+- [The Journey of a source line: how your code is translated into a controlled flow of electrons][anowak_talk_cern]
+
+
 [1.]: https://en.wikibooks.org/wiki/X86_Disassembly/Disassemblers_and_Decompilers
 [2.]: https://en.wikipedia.org/wiki/Category:Debugging
 [6.]: https://technet.microsoft.com/en-us/sysinternals/bb545021.aspx
@@ -72,4 +76,5 @@ Windows:
 [5.3.]: http://www.backerstreet.com/rec/rec.htm
 
 [dynamorio]: http://dynamorio.org/
+[anowak_talk_cern]: https://mediastream.cern.ch/MediaArchive/Video/Public2/weblecture-player/index.html?year=2018&lecture=668207&ftime=00:00:05#
 
