@@ -29,6 +29,7 @@ U-xs (GNU/Linux, *BSD, ...):
 - debugfs
 - kdump
 - gcore (dumping process mem / core)
+- [DynamoRio][dynamorio]
 
 Windows:
 
@@ -69,4 +70,6 @@ Windows:
 [5.1.]: http://boomerang.sourceforge.net/
 [5.2.]: https://www.hex-rays.com/products/decompiler/
 [5.3.]: http://www.backerstreet.com/rec/rec.htm
+
+[dynamorio]: http://dynamorio.org/
 
