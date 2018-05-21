@@ -20,14 +20,14 @@ $ git cvsimport -v -d :local:/home/repo/cvs module_name
 And you have the cvs module in a new git repo, you can eg. add a remote
 and push all there, eg. for github:
 {% highlight bash %}
-$ git remote add origin git@github.com:t-w/a_repo.git
+$ git remote add origin git@github.com:a_user/a_repo.git
 $ git push -u origin --all
 $ git push -u origin --tags
 {% endhighlight %}
 
 
 ### A bit more complicated way...
-... using cvs2git (cvs2svn) is described on [his page][3.]
+... using cvs2git (cvs2svn) is described on [this page][3.].
 
 
 (Possibly for more complicated cases these might not be as
