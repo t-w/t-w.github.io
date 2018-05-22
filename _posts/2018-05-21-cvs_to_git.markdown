@@ -27,7 +27,7 @@ $ git push -u origin --tags
 
 
 ### A bit more complicated way...
-... using cvs2git (cvs2svn) is described on [this page][3.].
+... using [`cvs2git` (`cvs2svn`)][7.] is described on [this page][3.].
 
 Shortest way:
 {% highlight bash %}
