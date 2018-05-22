@@ -29,9 +29,51 @@ $ git push -u origin --tags
 ### A bit more complicated way...
 ... using cvs2git (cvs2svn) is described on [this page][3.].
 
+Shortest way:
+{% highlight bash %}
+$ mkdir repo_converted_to_git
+$ cd repo_converted_to_git
+$ cvs2git \
+    --blobfile=cvs2git-tmp/git-blob.dat \
+    --dumpfile=cvs2git-tmp/git-dump.dat \
+    --username=cvs2git \
+    /path/to/cvs/repo
+$ cat cvs2git-tmp/git-*.dat | git fast-import
+{% endhighlight %}
 
-(Possibly for more complicated cases these might not be as
-straight-forward - but at the moment they work good enough for me).
+In case you need more detailed settings (like properly converted
+information about the commiters) it might be better to use
+the `cvs2git` with an options file:
+{% highlight bash %}
+$ cvs2git --options cvs2git.options
+{% endhighlight %}
+
+The most important in the `cvs2git.options` is the path to CVS repo:
+```
+run_options.set_project(
+    r'/home/repo/cvs/cvs_repo_to_convert',
+    (...)
+```
+Unfortunately, it cannot be set in command-line - pity, as the tool would be
+much more flexible in use, maybe cv2git/svn developers will change this one
+day...
+
+The options file also contains paths to the generateg git blob/dump files:
+```
+ctx.tmpdir = r'cvs2svn-tmp'
+ctx.revision_collector = GitRevisionCollector(
+    'cvs2svn-tmp/git-blob.dat',
+```
+and setting to properly transform information about commiters. eg.:
+```
+author_transforms={
+    'jrandom' : ('J. Random', 'jrandom@example.com'),
+    'prnd'    : 'P. Rnd <prnd@example.com>'
+}
+```
+
+`cvs2git` (`cvs2svn`) should contain an example of such file
+which is a good starting point.
 
 
 Useful related links
@@ -42,6 +84,7 @@ Useful related links
 4. [Link 4][4.]
 5. [Link 5][5.]
 6. [Link 6][6.]
+7. [Link 7][7.]
 
 [1.]: http://gitolite.com/archived/cvs2git.html
 [2.]: https://stackoverflow.com/questions/20869710/migrate-from-cvs-to-git-without-losing-history
@@ -49,4 +92,4 @@ Useful related links
 [4.]: https://gist.github.com/binarytemple/a707114df7067c1c81ab
 [5.]: http://www.mcs.anl.gov/~jacob/cvs2svn/cvs2git.html
 [6.]: http://web.mit.edu/svn/src/cvs2svn-1.4.0/www/cvs2svn.html
-
+[7.]: http://cvs2svn.tigris.org/cvs2git.html
