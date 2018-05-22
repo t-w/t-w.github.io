@@ -33,6 +33,7 @@ Shortest way:
 {% highlight bash %}
 $ mkdir repo_converted_to_git
 $ cd repo_converted_to_git
+$ git init
 $ cvs2git \
     --blobfile=cvs2git-tmp/git-blob.dat \
     --dumpfile=cvs2git-tmp/git-dump.dat \
