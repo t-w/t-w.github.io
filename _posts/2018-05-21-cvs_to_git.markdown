@@ -29,7 +29,7 @@ $ git push -u origin --tags
 ### A bit more complicated way...
 ... using [`cvs2git` (`cvs2svn`)][7.] is described on [this page][3.].
 
-Shortest way:
+The shortest way:
 {% highlight bash %}
 $ mkdir repo_converted_to_git
 $ cd repo_converted_to_git
@@ -56,8 +56,8 @@ run_options.set_project(
     (...)
 ```
 Unfortunately, it cannot be set in command-line - pity, as the tool would be
-much more flexible in use, maybe cv2git/svn developers will change this one
-day...
+much more flexible in use, maybe one day the developers of cvs2git/svn will
+change this...
 
 The options file also contains paths to the generateg git blob/dump files:
 ```
