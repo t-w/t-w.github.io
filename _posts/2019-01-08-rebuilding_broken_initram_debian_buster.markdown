@@ -43,16 +43,16 @@ kernel/x86/microcode/.enuineIntel.align.0123456789abc
 kernel/x86/microcode/GenuineIntel.bin
 28 blocks
 {% endhighlight %}
-   2. get standard initrd (use the size got above in skip parameter)
+   1. get standard initrd (use the size got above in skip parameter)
 {% highlight bash %}
 $ dd if=initrd-4.18-2.img of=initrd-4.18-2_initramfs.img bs=512 skip=28
 {% endhighlight %}
-   3. extract the initramfs (in some empty directory!)
+   1. extract the initramfs (in some empty directory!)
 {% highlight bash %}
 $ gzip -cd initrd-4.18-2_initramfs.img | cpio -i
 {% endhighlight %}
-2. Fix whatever necessary (in my case I had to comment/remove swap from crypttab)
-3. Rebuild initrd
+1. Fix whatever necessary (in my case I had to comment/remove swap from crypttab)
+1. Rebuild initrd
 {% highlight bash %}
 $ dd if=initrd-4.18-2.img of=initrd-4.18-2_fixed_microcode.img bs=512 count=28
 $ find . | cpio -H newc -o | gzip -c > initrd-4.18-2-fixed_initramfs.img
