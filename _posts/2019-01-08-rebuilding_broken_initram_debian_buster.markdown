@@ -43,11 +43,11 @@ kernel/x86/microcode/.enuineIntel.align.0123456789abc
 kernel/x86/microcode/GenuineIntel.bin
 28 blocks
 {% endhighlight %}
-	1. get standard initrd (use the size got above in skip parameter)
+    1. get standard initrd (use the size got above in skip parameter)
 {% highlight bash %}
 $ dd if=initrd-4.18-2.img of=initrd-4.18-2_initramfs.img bs=512 skip=28
 {% endhighlight %}
-   1. extract the initramfs (in some empty directory!)
+    1. extract the initramfs (in some empty directory!)
 {% highlight bash %}
 $ gzip -cd initrd-4.18-2_initramfs.img | cpio -i
 {% endhighlight %}
