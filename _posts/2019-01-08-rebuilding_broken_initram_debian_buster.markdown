@@ -33,7 +33,7 @@ initrd (gzipped cpio).
 Step by step how I managed to repair it:
 
 1. Extract the initial ramdisk
-   1. check the size of microcode initrd:
+    1. check the size of microcode initrd:
 {% highlight bash %}
 $ cpio -t < initrd-4.18-2.img
 kernel
@@ -43,7 +43,7 @@ kernel/x86/microcode/.enuineIntel.align.0123456789abc
 kernel/x86/microcode/GenuineIntel.bin
 28 blocks
 {% endhighlight %}
-   1. get standard initrd (use the size got above in skip parameter)
+	1. get standard initrd (use the size got above in skip parameter)
 {% highlight bash %}
 $ dd if=initrd-4.18-2.img of=initrd-4.18-2_initramfs.img bs=512 skip=28
 {% endhighlight %}
