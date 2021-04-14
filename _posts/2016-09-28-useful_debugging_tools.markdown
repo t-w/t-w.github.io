@@ -30,6 +30,8 @@ U-xs (GNU/Linux, *BSD, ...):
 - kdump
 - gcore (dumping process mem / core)
 - [DynamoRio][dynamorio]
+- [Flawfinder][flawfinder]
+- cppcheck
 - `ld` / `ldd`
   - `LD_PRELOAD`
   - `LD_BIND_NOW` (and -Wl, -znow) - resolve functions on load (not on the 1st call/lazy way)
@@ -40,6 +42,11 @@ Windows:
 - SoftICE (DOS, Win31, 95, .. , XP)
 - OllyDbg
 - x64dbg
+
+Java:
+
+- [FindBugs][findbugs]
+- [Jlint][jlint]
 
 ### Network monitoring
 - `tcpdump`
@@ -60,6 +67,7 @@ Windows:
 - `nm`
 - `elfedit`
 - `strip`
+- c++filt
 
 ### On-line tools
 - [Compiler explorer][compiler_explorer]
@@ -85,6 +93,9 @@ Related talks:
 [compiler_explorer][https://godbolt.org/]
 
 [dynamorio]: http://dynamorio.org/
+[flawfinder]: https://dwheeler.com/flawfinder/
+[findbugs]: http://findbugs.sourceforge.net/
+[jlint]: http://jlint.sourceforge.net/
+
 [anowak_talk_cern]: https://mediastream.cern.ch/MediaArchive/Video/Public2/weblecture-player/index.html?year=2018&lecture=668207&ftime=00:00:05#
 [bitsbetweenbits][https://yotube.com/watch?v=dOfucXtyEsU]
-

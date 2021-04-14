@@ -1,0 +1,96 @@
+---
+layout: post
+title: "The simpliest way to convert/import legacy CVS repositories to GIT"
+date: 2018-05-21
+categories: version control cvs git
+tags: cvs git conversion
+---
+Another task that should be relatively simple seems to be unnecessary
+complicated everywhere - so a quick note here.
+
+Assuming that you have the `CVSROOT` (the tree with CVS repositories
+to convert) locally available (a network drive should be OK, as long
+as you can access it directly using `cd`, `ls` etc.),
+all you have to do for each cvs repo (module) is:
+{% highlight bash %}
+$ mkdir module_name ; cd module_name
+$ git cvsimport -v -d :local:/home/repo/cvs module_name
+{% endhighlight %}
+
+And you have the cvs module in a new git repo, you can eg. add a remote
+and push all there, eg. for github:
+{% highlight bash %}
+$ git remote add origin git@github.com:a_user/a_repo.git
+$ git push -u origin --all
+$ git push -u origin --tags
+{% endhighlight %}
+
+
+### A bit more complicated way...
+... using [`cvs2git` (`cvs2svn`)][7.] is described on [this page][3.].
+
+The shortest way:
+{% highlight bash %}
+$ mkdir repo_converted_to_git
+$ cd repo_converted_to_git
+$ git init
+$ cvs2git \
+    --blobfile=cvs2git-tmp/git-blob.dat \
+    --dumpfile=cvs2git-tmp/git-dump.dat \
+    --username=cvs2git \
+    /path/to/cvs/repo
+$ cat cvs2git-tmp/git-*.dat | git fast-import
+{% endhighlight %}
+
+In case you need more detailed settings (like properly converted
+information about the commiters) it might be better to use
+the `cvs2git` with an options file:
+{% highlight bash %}
+$ cvs2git --options cvs2git.options
+{% endhighlight %}
+
+The most important in the `cvs2git.options` is the path to CVS repo:
+```
+run_options.set_project(
+    r'/home/repo/cvs/cvs_repo_to_convert',
+    (...)
+```
+Unfortunately, it cannot be set in command-line - pity, as the tool would be
+much more flexible in use, maybe one day the developers of cvs2git/svn will
+change this...
+
+The options file also contains paths to the generateg git blob/dump files:
+```
+ctx.tmpdir = r'cvs2svn-tmp'
+ctx.revision_collector = GitRevisionCollector(
+    'cvs2svn-tmp/git-blob.dat',
+```
+and setting to properly transform information about commiters. eg.:
+```
+author_transforms={
+    'jrandom' : ('J. Random', 'jrandom@example.com'),
+    'prnd'    : 'P. Rnd <prnd@example.com>'
+}
+```
+
+The archive/package with `cvs2git` (`cvs2svn`) should contain an example
+of such file which is a good starting point.
+
+
+Useful related links
+--------------------
+1. [Link 1][1.]
+2. [Link 2][2.]
+3. [Link 3][3.]
+4. [Link 4][4.]
+5. [Link 5][5.]
+6. [Link 6][6.]
+7. [Link 7][7.]
+
+[1.]: http://gitolite.com/archived/cvs2git.html
+[2.]: https://stackoverflow.com/questions/20869710/migrate-from-cvs-to-git-without-losing-history
+[3.]: https://blog.derakkilgo.com/2013/12/11/steps-to-migrate-a-code-repository-from-cvs-to-git/
+[4.]: https://gist.github.com/binarytemple/a707114df7067c1c81ab
+[5.]: http://www.mcs.anl.gov/~jacob/cvs2svn/cvs2git.html
+[6.]: http://web.mit.edu/svn/src/cvs2svn-1.4.0/www/cvs2svn.html
+[7.]: http://cvs2svn.tigris.org/cvs2git.html

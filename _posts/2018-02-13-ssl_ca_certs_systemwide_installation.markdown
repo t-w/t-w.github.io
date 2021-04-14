@@ -21,7 +21,9 @@ should be the same / very similar on others):
 
 1. Get the file the CA certificate in PEM format and store in an empty directory
 2. Generate proper hash-named symbolic link for the certificate file(s) either doing
-`$ ln -s a_ca_cert.crt ``openssl x509 -hash -noout -in a_ca_cert.crt``.0`
+{% highlight bash %}
+$ ln -s a_ca_cert.crt `openssl x509 -hash -noout -in a_ca_cert.crt`.0
+{% endhighlight  %}
 or using the `c_rehash` tool (available with OpenSSL, at least on Debian...)
 specifying the directory where the tools should look for the cert. files and
 generate the hash-named sym-links.
