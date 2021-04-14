@@ -98,4 +98,4 @@ Related talks:
 [jlint]: http://jlint.sourceforge.net/
 
 [anowak_talk_cern]: https://mediastream.cern.ch/MediaArchive/Video/Public2/weblecture-player/index.html?year=2018&lecture=668207&ftime=00:00:05#
-[bitsbetweenbits]: https://yotube.com/watch?v=dOfucXtyEsU
+[bitsbetweenbits]: https://youtube.com/watch?v=dOfucXtyEsU
