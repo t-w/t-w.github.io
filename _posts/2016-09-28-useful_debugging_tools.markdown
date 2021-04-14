@@ -90,7 +90,7 @@ Related talks:
 [5.2.]: https://www.hex-rays.com/products/decompiler/
 [5.3.]: http://www.backerstreet.com/rec/rec.htm
 
-[compiler_explorer][https://godbolt.org/]
+[compiler_explorer]: https://godbolt.org/
 
 [dynamorio]: http://dynamorio.org/
 [flawfinder]: https://dwheeler.com/flawfinder/
@@ -98,4 +98,4 @@ Related talks:
 [jlint]: http://jlint.sourceforge.net/
 
 [anowak_talk_cern]: https://mediastream.cern.ch/MediaArchive/Video/Public2/weblecture-player/index.html?year=2018&lecture=668207&ftime=00:00:05#
-[bitsbetweenbits][https://yotube.com/watch?v=dOfucXtyEsU]
+[bitsbetweenbits]: https://yotube.com/watch?v=dOfucXtyEsU
