@@ -13,13 +13,13 @@ Just a messy (and unfinished) list for now (may be updated later...)
 
 U-xs (GNU/Linux, *BSD, ...):
 
-- gdb, ddd
-- pstack
-- strace, ktrace, ltrace, ftrace, latrace, mutextrace, xtrace, etrace
-- LTT (Linux Trace Toolkit) / LTTng: trace, traceview
+- `gdb`, `ddd`
+- `pstack`
+- `strace, ktrace, ltrace, ftrace, latrace, mutextrace, xtrace, etrace`
+- LTT (Linux Trace Toolkit) / LTTng: `trace`, `traceview`
 - truss, sotruss
 - gprof (call graph profile data)
-- valgrind
+- `valgrind`
 - dtrace
 - systemtap
 - dprobes, kprobes
@@ -30,17 +30,20 @@ U-xs (GNU/Linux, *BSD, ...):
 - kdump
 - gcore (dumping process mem / core)
 - [DynamoRio][dynamorio]
+- `ld` / `ldd`
+  - `LD_PRELOAD`
+  - `LD_BIND_NOW` (and -Wl, -znow) - resolve functions on load (not on the 1st call/lazy way)
+  - `ldd` and `LD_DEBUG`
 
 Windows:
-
 - sysinternals tools: filemon, process explorer, ...
 - SoftICE (DOS, Win31, 95, .. , XP)
 - OllyDbg
 - x64dbg
 
 ### Network monitoring
-- tcpdump
-- wireshark
+- `tcpdump`
+- `wireshark`
 
 ### Disassemblers, hex editors, analysers
 - IDA (Interactive disassembler) (and IDA Pro - commercial...)
@@ -53,10 +56,13 @@ Windows:
 - [Reverse engineering compiler][5.3.]
 
 ### Other bin utils
-- objdump
-- nm
-- elfedit
-- strip
+- `objdump`
+- `nm`
+- `elfedit`
+- `strip`
+
+### On-line tools
+- [Compiler explorer][compiler_explorer]
 
 ### Links
 - [Disassemblers, decompilers x64 (Wiki)][1.]
@@ -65,7 +71,8 @@ Windows:
 
 Related talks:
 - [The Journey of a source line: how your code is translated into a controlled flow of electrons][anowak_talk_cern]
-
+- [The bits between the bits: How we get to main()][bitsbetweenbits]
+  - C/C++ startup code, linking, symbol resolution, debugging
 
 [1.]: https://en.wikibooks.org/wiki/X86_Disassembly/Disassemblers_and_Decompilers
 [2.]: https://en.wikipedia.org/wiki/Category:Debugging
@@ -75,6 +82,9 @@ Related talks:
 [5.2.]: https://www.hex-rays.com/products/decompiler/
 [5.3.]: http://www.backerstreet.com/rec/rec.htm
 
+[compiler_explorer][https://godbolt.org/]
+
 [dynamorio]: http://dynamorio.org/
 [anowak_talk_cern]: https://mediastream.cern.ch/MediaArchive/Video/Public2/weblecture-player/index.html?year=2018&lecture=668207&ftime=00:00:05#
+[bitsbetweenbits][https://yotube.com/watch?v=dOfucXtyEsU]
 
