@@ -9,21 +9,21 @@ tags: debian diskless pxe nbd
 ### Motivation
 Definitive failure of an ancient 16G SSD (PATA!) in Dell Vostro a90 nearly lead
 to trashing the machine. Not that it is used that much but occasionally it still worked well
-(eg. as SNES emulation system or as low-end machine for testing software performance).
+(eg. as a SNES emulation system or as a low-end machine for testing software performance).
 
 At present, the disk with such an interface (miniPCI-e PATA) is nearly impossible
 to get. Those available are in the US for some ridiculus price and have even more ridiculus
 shipment cost (more than the disk itself...).
 
 Such catastrophies occasionally motivates to make something not necessarily very useful (as is
-that ancient machine...) - but are opportunity to play with features of today's operating systems.
+that ancient machine...) - but gives opportunity to play with features of today's operating systems.
 An so was this time...
 
-A long time ago (~20 years or so), I was building custom diskless linuxes for computer labs
-at my Alma Mater. Having usual infrastructure in place, I was using read-only nfsroot, at some point
+A long time ago (20 years or so...), I was building custom diskless linuxes for computer labs
+at my Alma Mater. Having a usual infrastructure in place, I was using read-only nfsroot, at some point
 improved with some hacks like layered filesystem (unionfs/aufs) - an approach that was/is used with
-some live CDs / USBs and some years later became popular with Docker containers. The purpose was similar
-- keep image of the original OS intact while letting work with relatively large permissions
+some live CDs / USBs and some years later became popular with Docker containers. The purpose was
+similar - keep image of the original OS intact while letting work with relatively large permissions
 and have fresh a OS with each restart (to keep security and reliability on reasonable level).
 
 However, preparing such nfsroot system was taking quite a bit of time (dhbootstrap, manual
