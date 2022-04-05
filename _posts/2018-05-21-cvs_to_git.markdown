@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "The simpliest way to convert/import legacy CVS repositories to GIT"
+title: "The simplest way to convert/import legacy CVS repositories to GIT"
 date: 2018-05-21
 categories: version control cvs git
 tags: cvs git conversion
