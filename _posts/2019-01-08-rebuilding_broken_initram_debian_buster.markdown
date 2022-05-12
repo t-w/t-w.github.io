@@ -62,7 +62,7 @@ $ find . | cpio -H newc -o | gzip -c > initrd-4.18-2-fixed_initramfs.img
 $ cat initrd-4.18-2_fixed_microcode.img initrd-4.18-2-fixed_initramfs.img > initrd-4.18-2-fixed.img
 {% endhighlight %}
 
-One again, I feel more convinced that switching to FreeBSD might be the best 
+Once again, I feel more convinced that switching to FreeBSD might be the best 
 option in the era with Linux distros broken with systemd, unreliable/random
 disk ordering...
 
