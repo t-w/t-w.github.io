@@ -146,7 +146,7 @@ as they have hardcoded paths (this actually could be done better in Debian).
 (Note that Debian installer prepared in this way can be used to install a regular local debian - you just
 won't need any CD/DVD/USB image anymore.)
 
-### NBD under Debian installer
+### NBD and Debian installer
 While Debian installer provides loading nbd modules as an option, there are no tools allowing
 to actually configure and use an nbd (what just makes nbd modules useless...). This is the major chore
 during the installation - it is necessary to get the `nbd-client` binary which will work within
@@ -259,7 +259,7 @@ eventually update it without rebuilding the whole initrd.
 The recipe above was a quick prototype of initrd, with hardcoded values (adresses, NBD name etc.).
 It was possible to improve this and do it less invasive and more flexible (parametrized) way.
 
-1. Modification in `/init` - add setting `NBDROOT` from kernel parameter nbdroot:
+1. Modification in [`/init`][init_patched] - add setting `NBDROOT` from kernel parameter nbdroot:
 ```
 [...]
 # Parse command line options
@@ -281,247 +281,9 @@ for x in $(cat /proc/cmdline); do
         nfsroot=*)
 [...]
 ```
-2. Add the `/sbin/nbd` script:
-```
-\# NBD filesystem mounting                       -*- shell-script -*-
+2. Add the [`/scripts/nbd`][script_nbd] script (configuring and mounting rootfs on NBD).
 
-nbd_top()
-{
-        if [ "${nbd_top_used}" != "yes" ]; then
-                [ "${quiet?}" != "y" ] && log_begin_msg "Running /scripts/nbd-top"
-                run_scripts /scripts/nbd-top
-                [ "$quiet" != "y" ] && log_end_msg
-        fi
-        nbd_top_used=yes
-}
-
-nbd_block()
-{
-        [ "${quiet?}" != "y" ] && log_begin_msg "Running /scripts/nbd-block"
-        run_scripts /scripts/nbd-block "$@"
-        [ "$quiet" != "y" ] && log_end_msg
-}
-
-nbd_premount()
-{
-        if [ "${nbd_premount_used}" != "yes" ]; then
-                [ "${quiet?}" != "y" ] && log_begin_msg "Running /scripts/nbd-premount"
-                run_scripts /scripts/nbd-premount
-                [ "$quiet" != "y" ] && log_end_msg
-        fi
-        nbd_premount_used=yes
-}
-
-nbd_bottom()
-{
-        if [ "${nbd_premount_used}" = "yes" ] || [ "${nbd_top_used}" = "yes" ]; then
-                [ "${quiet?}" != "y" ] && log_begin_msg "Running /scripts/nbd-bottom"
-                run_scripts /scripts/nbd-bottom
-                [ "$quiet" != "y" ] && log_end_msg
-        fi
-        nbd_premount_used=no
-        nbd_top_used=no
-}
-
-
-# $1=device ID to mount
-# $2=optionname (for root and etc)
-# $3=panic if device is missing (true or false, default: true)
-# Sets $DEV to the resolved device node
-nbd_device_setup()
-{
-        local dev_id="$1"
-        local name="$2"
-        local may_panic="${3:-true}"
-        local real_dev
-        local time_elapsed
-        local count
-
-        wait_for_udev 10
-
-        # setup networking
-        configure_networking
-
-        # setup nbd
-        #tftp -g -r vostro/bin/nbd-client -l /bin/nbd-client 192.168.1.1
-        #chmod a+rx /bin/nbd-client
-        modprobe nbd
-
-        # nbdroot kernel param => NBDROOT in init, eg. 192.168.1.1,nbd_export,nbd0
-        NBD_SERVER=`echo $NBDROOT | cut -d',' -f 1`
-        NBD_EXPORT=`echo $NBDROOT | cut -d',' -f 2`
-        NBD_DEVICE=`echo $NBDROOT | cut -d',' -f 3`
-        [ -z "${NBD_DEVICE}" ] && { NBD_DEVICE=nbd0 ; }
-        echo -e "Configuring NBD device:" \
-             "\n\tserver: ${NBD_SERVER}\n\texport: ${NBD_EXPORT}" \
-             "\n\tdevice: /dev/${NBD_DEVICE}"
-
-        #nbd-client -N vostro 192.168.1.1 /dev/nbd0
-        nbd-client -N ${NBD_EXPORT} ${NBD_SERVER} /dev/${NBD_DEVICE}
-
-        
-        # Don't wait for a device that doesn't have a corresponding
-        # device in /dev and isn't resolvable by blkid (e.g. mtd0)
-        if [ "${dev_id#/dev}" = "${dev_id}" ] &&
-           [ "${dev_id#*=}" = "${dev_id}" ]; then
-                DEV="${dev_id}"
-                return
-        fi
-
-        # If the root device hasn't shown up yet, give it a little while
-        # to allow for asynchronous device discovery (e.g. USB).  We
-        # also need to keep invoking the local-block scripts in case
-        # there are devices stacked on top of those.
-        if ! real_dev=$(resolve_device "${dev_id}") ||
-           ! get_fstype "${real_dev}" >/dev/null; then
-                log_begin_msg "Waiting for ${name}"
-
-                # Timeout is max(30, rootdelay) seconds (approximately)
-                slumber=30
-                if [ "${ROOTDELAY:-0}" -gt $slumber ]; then
-                        slumber=$ROOTDELAY
-                fi
-
-                while true; do
-                        sleep 1
-                        time_elapsed="$(time_elapsed)"
-
-                        nb_block "${dev_id}"
-
-                        # If mdadm's local-block script counts the
-                        # number of times it is run, make sure to
-                        # run it the expected number of times.
-                        while true; do
-                                if [ -f /run/count.mdadm.initrd ]; then
-                                        count="$(cat /run/count.mdadm.initrd)"
-                                elif [ -n "${count}" ]; then
-                                        # mdadm script deleted it; put it back
-                                        count=$((count + 1))
-                                        echo "${count}" >/run/count.mdadm.initrd
-                                else
-                                        break
-                                fi
-                                if [ "${count}" -ge "${time_elapsed}" ]; then
-                                        break;
-                                fi
-                                /scripts/nbd-block/mdadm "${dev_id}"
-                        done
-
-                        if real_dev=$(resolve_device "${dev_id}") &&
-                           get_fstype "${real_dev}" >/dev/null; then
-                                wait_for_udev 10
-                                log_end_msg 0
-                                break
-                        fi
-                        if [ "${time_elapsed}" -ge "${slumber}" ]; then
-                                log_end_msg 1 || true
-                                break
-                        fi
-                done
-        fi
-
-        # We've given up, but we'll let the user fix matters if they can
-        while ! real_dev=$(resolve_device "${dev_id}") ||
-              ! get_fstype "${real_dev}" >/dev/null; do
-                if ! $may_panic; then
-                        echo "Gave up waiting for ${name}"
-                        return 1
-                fi
-                echo "Gave up waiting for ${name} device.  Common problems:"
-                echo " - Boot args (cat /proc/cmdline)"
-                echo "   - Check rootdelay= (did the system wait long enough?)"
-                if [ "${name}" = root ]; then
-                        echo "   - Check root= (did the system wait for the right device?)"
-                fi
-                echo " - Missing modules (cat /proc/modules; ls /dev)"
-                panic "ALERT!  ${dev_id} does not exist.  Dropping to a shell!"
-        done
-
-        DEV="${real_dev}"
-}
-
-nbd_mount_root()
-{
-        nbd_top
-        if [ -z "${ROOT}" ]; then
-                panic "No root device specified. Boot arguments must include a root= parameter."
-        fi
-        nbd_device_setup "${ROOT}" "root file system"
-        ROOT="${DEV}"
-
-        # Get the root filesystem type if not set
-        if [ -z "${ROOTFSTYPE}" ] || [ "${ROOTFSTYPE}" = auto ]; then
-                FSTYPE=$(get_fstype "${ROOT}")
-        else
-                FSTYPE=${ROOTFSTYPE}
-        fi
-
-        nbd_premount
-
-        if [ "${readonly?}" = "y" ]; then
-                roflag=-r
-        else
-                roflag=-w
-        fi
-
-        checkfs "${ROOT}" root "${FSTYPE}"
-
-        # Mount root
-        # shellcheck disable=SC2086
-        if ! mount ${roflag} ${FSTYPE:+-t "${FSTYPE}"} ${ROOTFLAGS} "${ROOT}" "${rootmnt?}"; then
-                panic "Failed to mount ${ROOT} as root file system."
-        fi
-}
-
-nbd_mount_fs()
-{
-        read_fstab_entry "$1"
-
-        nbd_device_setup "$MNT_FSNAME" "$1 file system"
-        MNT_FSNAME="${DEV}"
-
-        nbd_premount
-
-        if [ "${readonly}" = "y" ]; then
-                roflag=-r
-        else
-                roflag=-w
-        fi
-
-        if [ "$MNT_PASS" != 0 ]; then
-                checkfs "$MNT_FSNAME" "$MNT_DIR" "${MNT_TYPE}"
-        fi
-
-        # Mount filesystem
-        if ! mount ${roflag} -t "${MNT_TYPE}" -o "${MNT_OPTS}" "$MNT_FSNAME" "${rootmnt}${MNT_DIR}"; then
-                panic "Failed to mount ${MNT_FSNAME} as $MNT_DIR file system."
-        fi
-}
-
-mountroot()
-{
-        nbd_mount_root
-}
-
-mount_top()
-{
-        # Note, also called directly in case it's overridden.
-        nbd_top
-}
-
-mount_premount()
-{
-        # Note, also called directly in case it's overridden.
-        nbd_premount
-}
-
-mount_bottom()
-{
-        # Note, also called directly in case it's overridden.
-        nbd_bottom
-}
-```
-3. Put `nbd-client` binary into `/bin/` on initrd (no need to download it separately).
+3. Put [`nbd-client`][nbd_client_for_installed] binary into `/bin/` on initrd (no need to download it separately).
 
 This way, the nbd device can be configured in configuration of pxelinux with parameter nbdroot
 as shown in example above.
@@ -553,6 +315,7 @@ made more robust and easier to recover.
 - [NBD on github][nbdgit]
 - [UDEB][udeb]
 - [DI_COMPONENTS][di_components]
+- iSCSI: [iSCSI initiator][open_iscsi], [iSCSI target (stgt)][stgt], [iSCSI target (istgt)][istgt]
 
 [nbd]:    https://nbd.sourceforge.io
 [nbdgit]: https://github.com/NetworkBlockDevice/nbd
@@ -561,3 +324,11 @@ made more robust and easier to recover.
 [netboot]: http://ftp.pl.debian.org/debian/dists/bullseye/main/installer-i386/current/images/netboot/
 [netboot_i386]: http://ftp.pl.debian.org/debian/dists/bullseye/main/installer-i386/current/images/netboot/debian-installer/i386/
 [icm_debian_nbd]: http://ftp.icm.edu.pl/debian/pool/main/n/nbd/
+
+[open_iscsi]: https://www.open-iscsi.com/
+[stgt]:  http://stgt.sourceforge.net/
+[istgt]: http://www.peach.ne.jp/archives/istgt/
+
+[init_patched]: https://github.com/t-w/debian_on_nbd/patch/init
+[script_nbd]:  https://github.com/t-w/debian_on_nbd/patch/scripts/nbd
+[nbd_client_for_installed]: https://github.com/t-w/debian_on_nbd/patch/bin/nbd-client
