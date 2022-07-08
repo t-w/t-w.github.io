@@ -329,6 +329,6 @@ made more robust and easier to recover.
 [stgt]:  http://stgt.sourceforge.net/
 [istgt]: http://www.peach.ne.jp/archives/istgt/
 
-[init_patched]: https://github.com/t-w/debian_on_nbd/patch/init
-[script_nbd]:  https://github.com/t-w/debian_on_nbd/patch/scripts/nbd
-[nbd_client_for_installed]: https://github.com/t-w/debian_on_nbd/patch/bin/nbd-client
+[init_patched]: https://github.com/t-w/debian_on_nbd/blob/main/patch/init
+[script_nbd]:  https://github.com/t-w/debian_on_nbd/blob/main/patch/scripts/nbd
+[nbd_client_for_installed]: https://github.com/t-w/debian_on_nbd/blob/main/patch/bin/nbd-client
