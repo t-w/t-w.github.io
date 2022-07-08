@@ -7,12 +7,12 @@ tags: debian diskless pxe nbd
 ---
 
 ## Motivation
-A definitive failure of an ancient 16G SSD (PATA!) in my Dell Vostro A90 nearly lead
+A definitive failure of the 16G SSD (PATA!) in my ancient Dell Vostro A90 nearly lead
 to trashing the machine. Not that it is used that much but occasionally it still worked well
 (eg. as a low-end machine for testing software performance or even a SNES emulation system).
 
 At present, a disk with such interface (miniPCI-e PATA) is nearly impossible
-to acquire. Few are available for some ridiculus price on the other side of Atlantic (USA)
+to acquire. Few are available for some ridiculus price on the other side of the Atlantic (USA)
 and have even more ridiculus shipment cost (more than the disk itself...).
 
 Such catastrophies occasionally motivates to make something not necessarily very useful (as is
@@ -292,7 +292,12 @@ as shown in example above.
 to implement in Debian. It would make way more easy creating systems on NBD).
 
 
-## Conclusions
+## Result and conclusions
+My Vostro works fine running Debian on NBD since few months.
+The NBD (through 100Mb network card!) does not seem visibly slower than the weird SSD - the machine itself
+is very slow in today's standards (Intel Atom).
+In the meantime, I've made the same setup for another machine (and may do similar things for some others).
+
 As you could see, while there are a few tricky places, Debian (and probably other distros too)
 can be installed and used with root filesystem on an NBD device. If Debian developers
 remove the weird obstacles (like the lack of `nbd-client` in the installer
@@ -309,6 +314,7 @@ the same flexibility as with a virtual machines: backup is just a file copy,
 templating, reuse for any experiments is equally simple - but it runs on a bare metal hardware.
 Also - the use of some "special" machines (like described above) can be extended and/or
 made more robust and easier to recover.
+
 
 ## Useful links
 - [NBD][nbd]
