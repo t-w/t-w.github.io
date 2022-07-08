@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Diskless Debian 11 on an Intel PC (i386/amd64) with PXE and rootfs on NBD"
+title: "Debian 11 on a diskless Intel PC (i386/amd64) with root filesystem on NBD"
 date: 2022-03-09
 categories: debian
 tags: debian diskless pxe nbd
