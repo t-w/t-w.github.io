@@ -34,7 +34,7 @@ filesytem that can be used as the root filesystem), the other way is to have a n
 (Obviously) excluding enterprise solutions (not really great for home...), left me with iSCSI 
 and [Network Block Device (NBD)][nbd]. I knew the first one a bit, as (also many years ago)
 I have built the faculty's first SAN storage system on a Linux machine with disk array
-exported with [Open-iSCSI][openiscsi] target (meaning server, _initiator_/_target_ are legacy terms from SCSI).
+exported with [The Linux iSCSI Target][linux_iscsi_target] (meaning server, "_initiator_ / _target_" are legacy terms from SCSI).
 This still seemed a bit too complex for a home solution. Also, according to some opinions,
 NBD is way simpler and - what goes along - lighter and faster.
 
@@ -326,6 +326,7 @@ made more robust and easier to recover.
 [icm_debian_nbd]: http://ftp.icm.edu.pl/debian/pool/main/n/nbd/
 
 [open_iscsi]: https://www.open-iscsi.com/
+[linux_iscsi_target]: linux-iscsi.org/wiki/iSCSI
 [stgt]:  http://stgt.sourceforge.net/
 [istgt]: http://www.peach.ne.jp/archives/istgt/
 
