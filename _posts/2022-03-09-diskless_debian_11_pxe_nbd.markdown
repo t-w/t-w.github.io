@@ -283,7 +283,7 @@ for x in $(cat /proc/cmdline); do
 ```
 2. Add the `/sbin/nbd` script:
 ```
-# NBD filesystem mounting                       -*- shell-script -*-
+\# NBD filesystem mounting                       -*- shell-script -*-
 
 nbd_top()
 {
