@@ -48,19 +48,19 @@ several different software packages). So please, have a look elsewhere for this
 
 A little more will be about NBD which is the main focus here.
 
-# DHCP
+## DHCP
 Must have a static IP configuration for the client host, with filename poiting to pxelinux.0
 on you tftp server. (Unless you have a more complex config. - but then you know what to do...).
 
 It must provide proper configuration: the default router for your network and the DNS
 (otherwise Debian installer with not reach its package repositories).
 
-# TFTP
+## TFTP
 Must be setup and available for the client (ie. firewall). It will contain `pxelinux.0` with
 its modules, configuration, Debian's network installer, later also Debian's kernel and initrd
 (for the installed system - as we always boot from the network!).
 
-# DNS
+## DNS
 It should contain proper name resolution for the server(s) and the clients
 (if only this one is being sent by DHCP - it must also resolve properly all other internet domains).
 
@@ -71,13 +71,13 @@ of course, be another block device, like an LVM volume) to network clients.
 
 So, the are 2 things to do:
 
-# creating a file that will server as the exported NDB image
+1. Creating a file that will serve as the exported NDB image
 For instance, for a 5G file:
 ```
 dd if=/dev/zero of=/home/nbd/vostro-debian.img bs=1M count=5120
 ```
 
-# Configure the NBD server to expose the image to client(s)
+2. Configure the NBD server to expose the image to client(s)
 Configuration of the nbd-server is fairly trivial. The following example is for Debian.
 - create a file `/etc/nbd-server/conf.d/`, eg. `/etc/nbd-server/conf.d/mydebian.conf`
 ```
