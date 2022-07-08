@@ -6,7 +6,7 @@ categories: debian
 tags: debian diskless pxe nbd
 ---
 
-### Motivation
+## Motivation
 A definitive failure of an ancient 16G SSD (PATA!) in my Dell Vostro A90 nearly lead
 to trashing the machine. Not that it is used that much but occasionally it still worked well
 (eg. as a low-end machine for testing software performance or even a SNES emulation system).
@@ -40,7 +40,7 @@ NBD is way simpler and - what goes along - lighter and faster.
 
 So - NBD...
 
-### Network configuration
+## Network configuration
 Network services that needs to be available to go any further: DHCP, TFTP, DNS.
 Detailed configuration of these are out of scope (esp. that each of these can be provided by
 several different software packages). So please, have a look elsewhere for this
@@ -48,24 +48,24 @@ several different software packages). So please, have a look elsewhere for this
 
 A little more will be about NBD which is the main focus here.
 
-## DHCP
+### DHCP
 Must have a static IP configuration for the client host, with filename poiting to pxelinux.0
 on you tftp server. (Unless you have a more complex config. - but then you know what to do...).
 
 It must provide proper configuration: the default router for your network and the DNS
 (otherwise Debian installer with not reach its package repositories).
 
-## TFTP
+### TFTP
 Must be setup and available for the client (ie. firewall). It will contain `pxelinux.0` with
 its modules, configuration, Debian's network installer, later also Debian's kernel and initrd
 (for the installed system - as we always boot from the network!).
 
-## DNS
+### DNS
 It should contain proper name resolution for the server(s) and the clients
 (if only this one is being sent by DHCP - it must also resolve properly all other internet domains).
 
 
-### Create and export a disk image using NDB
+## Create and export a disk image using NDB
 The NBD server allows to export a file (which can a regular file on a filesystem or,
 of course, be another block device, like an LVM volume) to network clients.
 
@@ -96,16 +96,12 @@ Note that by default (set in the global config of nbd-server: `/etc/nbd-server/c
 the `nbd-server` will run as user `ndb`/group `ndb` - the ownership and permissions to the image file
 must be properly set.
 
-### A (fully) network installation
+## A (fully) network installation
 The first step is to provide the OS installer available on the network - so that booting the machine
 using network card and the PXE protocol will start Debian installer.
 
-The network installer for the Debian i386 can be found under `netboot/` path in Debian repositories:
-http://ftp.pl.debian.org/debian/dists/bullseye/main/installer-i386/current/images/netboot/
-
-though, in fact, the content of:
-http://ftp.pl.debian.org/debian/dists/bullseye/main/installer-i386/current/images/netboot/debian-installer/i386/
-is enough (talking about the whole subtree of course).
+The network installer for the Debian i386 can be found under [`netboot/`][netboot] path in Debian repositories,
+though, in fact, the content of [`debian-installer/i386/`][netboot_i386] is enough (talking about the whole subtree of course).
 
 The downloaded contents has to be put on the tftp server and properly configured, ie. the DHCP info sent to the client 
 must be pointing to `pxelinux.0` as boot file. Then, in the same directory, `pxelinux.cfg/default` lies the default config.
@@ -150,14 +146,14 @@ as they have hardcoded paths (this actually could be done better in Debian).
 (Note that Debian installer prepared in this way can be used to install a regular local debian - you just
 won't need any CD/DVD/USB image anymore.)
 
-# NBD under Debian installer
+### NBD under Debian installer
 While Debian installer provides loading nbd modules as an option, there are no tools allowing
 to actually configure and use an nbd (what just makes nbd modules useless...). This is the major chore
 during the installation - it is necessary to get the `nbd-client` binary which will work within
 the installation system (which is _not_ the same package as in the regular system - as the installer
 does not contain most of the libraries). I extracted the binary from package `nbd-client-udeb_3.21-1_i386.udeb`
 (note the [`udeb`][udeb], which is micro-deb or [debian installer package][di_components]).
-You can find one on any Debian mirror, eg: http://ftp.icm.edu.pl/debian/pool/main/n/nbd/
+You can find one on any Debian mirror, eg. [this one][icm_debian_nbd].
 
 The binary has to be transferred to the installation system - tip: check what tools
 are available (ftp/tftp/curl/scp/etc) and just make it available for download. Other way would be
@@ -174,7 +170,7 @@ Then, such device can be partitioned, formatted and used by the installer as tar
 using a loop device with whatever program you want. The installer require just specifying
 mount points and filesystems).
 
-# Installation of the system
+### Installation of the system
 ... is as usual. Except for the bootloader - installing it obviously does not make any sense
 as the network bootloader (`pxelinux`) will be loaded from network.
 
@@ -184,7 +180,7 @@ loading kernel and initrd!). If you forget it - again, you can just mount the fi
 
 After finishing the installation - a few more things has to be done manually to boot the new system.
 
-### Booting the newly installed Debian on NBD
+## Booting the newly installed Debian on NBD
 Configuration for PXElinux:
 ```
 LABEL Debian
@@ -259,7 +255,7 @@ $ ldd nbd-3.24/nbd-client
 This is why I decided to just put it on the tftp server and download - so that I can
 eventually update it without rebuilding the whole initrd.
 
-## initrd with nbd support - more generic and parametrized
+### initrd with nbd support - more generic and parametrized
 The recipe above was a quick prototype of initrd, with hardcoded values (adresses, NBD name etc.).
 It was possible to improve this and do it less invasive and more flexible (parametrized) way.
 
@@ -534,7 +530,7 @@ as shown in example above.
 to implement in Debian. It would make way more easy creating systems on NBD).
 
 
-### Conclusions
+## Conclusions
 As you could see, while there are a few tricky places, Debian (and probably other distros too)
 can be installed and used with root filesystem on an NBD device. If Debian developers
 remove the weird obstacles (like the lack of `nbd-client` in the installer
@@ -552,7 +548,7 @@ templating, reuse for any experiments is equally simple - but it runs on a bare 
 Also - the use of some "special" machines (like described above) can be extended and/or
 made more robust and easier to recover.
 
-### Useful links
+## Useful links
 - [NBD][nbd]
 - [NBD on github][nbdgit]
 - [UDEB][udeb]
@@ -562,3 +558,6 @@ made more robust and easier to recover.
 [nbdgit]: https://github.com/NetworkBlockDevice/nbd
 [udeb]:   https://wiki.debian.org/udeb
 [di_components]: https://d-i.debian.org/doc/internals/ch03.html
+[netboot]: http://ftp.pl.debian.org/debian/dists/bullseye/main/installer-i386/current/images/netboot/
+[netboot_i386]: http://ftp.pl.debian.org/debian/dists/bullseye/main/installer-i386/current/images/netboot/debian-installer/i386/
+[icm_debian_nbd]: http://ftp.icm.edu.pl/debian/pool/main/n/nbd/
