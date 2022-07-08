@@ -326,7 +326,7 @@ made more robust and easier to recover.
 [icm_debian_nbd]: http://ftp.icm.edu.pl/debian/pool/main/n/nbd/
 
 [open_iscsi]: https://www.open-iscsi.com/
-[linux_iscsi_target]: linux-iscsi.org/wiki/iSCSI
+[linux_iscsi_target]: https://linux-iscsi.org/wiki/iSCSI
 [stgt]:  http://stgt.sourceforge.net/
 [istgt]: http://www.peach.ne.jp/archives/istgt/
 
