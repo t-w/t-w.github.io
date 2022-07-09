@@ -158,7 +158,7 @@ You can find one on any Debian mirror, eg. [this one][icm_debian_nbd].
 The binary has to be transferred to the installation system - tip: check what tools
 are available (ftp/tftp/curl/scp/etc) and just make it available for download. Other way would be
 modification of the installator's initrd (this would make it permanent, useful in case of creating other
-similar installations) - but I have't considered it worthwhile.
+similar installations) - but I haven't considered it worthwhile.
 
 `nbd-client` copied to the Debian installer system allows finally to setup the block device:
 ```
@@ -257,7 +257,7 @@ eventually update it without rebuilding the whole initrd.
 
 ### initrd with nbd support - more generic and parametrized
 The recipe above was a quick prototype of initrd, with hardcoded values (adresses, NBD name etc.).
-It was possible to improve this and do it less invasive and more flexible (parametrized) way.
+It was possible to improve this and do it in a less invasive and more flexible (parametrized) way.
 
 1. Modification in [`/init`][init_patched] - add setting `NBDROOT` from kernel parameter nbdroot:
 ```
@@ -285,11 +285,11 @@ for x in $(cat /proc/cmdline); do
 
 3. Put [`nbd-client`][nbd_client_for_installed] binary into `/bin/` on initrd (no need to download it separately).
 
-This way, the nbd device can be configured in configuration of pxelinux with parameter nbdroot
-as shown in example above.
+This way, the nbd device can be configured in the pxelinux using kernel parameter nbdroot
+(as shown in example above).
 
 (This version of initrd is still not perfect, but it could already be proposed
-to implement in Debian. It would make way more easy creating systems on NBD).
+to implement in Debian. It would make creating systems on NBD much simpler and faster).
 
 
 ## Result and conclusions
