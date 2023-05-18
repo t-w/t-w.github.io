@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Building a custom OS image for Belkin NetCam"
+title: "Building a custom OS image for Belkin NetCam (an unfinished draft)"
 date: 2022-08-05
 categories: embedded
 tags: embedded netcam openwrt kernel devicetree
@@ -10,7 +10,7 @@ tags: embedded netcam openwrt kernel devicetree
 A few years ago, I bought a Belkin Netcam (the exact model id: F7D7601v1), which,
 despite of annoying cloud-only availability, served decently. For some time at least...
 
-It was until the moment when Belkin withdraw support for these cameras (_add link_).
+It was until the moment when Belkin withdraw its support for these cameras (_add a link_).
 Normally such a thing means, that if the device breaks or there is a software bug
 (eg. a security vulnerability) then your are on your own.
 But we are in the new, wonderful era of cloud-connected and cloud-managed IoT,
@@ -114,7 +114,7 @@ If I am going to build a custom toolchain, than rather with a newer GCC etc.
 
 Fortunately, I have found the original SDK(!), with original (patched!) sources
 of the kernel, software, documentation etc. (!).
-It was lacking `gcc` - but I managed to find it too (l`ink!`).
+It was lacking `gcc` - but I managed to find it too([buildroot-gcc342.tar.bz2][gcc342]).
 This opened a way to build (or at least - rebuild) the software to patch or
 add some missing features.
 
@@ -191,14 +191,17 @@ though... Then I made a setup for MIPS/ralink305x/experimental device
 (_or sth like this - to check_), and build with the target of `uboot` image.
 
 Now the big test - camera's uboot version leaves only one option for booting a custom system:
+```
 # tftp <address> <IP> <remotefile>
 # bootm <address>
-
+```
 - but where the hell am I supposed to load the file???
-I took RA5350's memory map in hand, after couple of tests I found out that 0x8200000
+I took RA5350's memory map in hand, after couple of tests I found out that `0x8200000`
 is kind of an optimal address for loading the kernel, so that:
+```
 # tftp 0x8200000 <IP> <remotefile>
 # bootm 0x8200000
+```
 should do the trick.
 
 Note that:
@@ -286,3 +289,6 @@ can be mapped properly (ie. mentioned RAM size).
 [init_patched]: https://github.com/t-w/debian_on_nbd/blob/main/patch/init
 [script_nbd]:  https://github.com/t-w/debian_on_nbd/blob/main/patch/scripts/nbd
 [nbd_client_for_installed]: https://github.com/t-w/debian_on_nbd/blob/main/patch/bin/nbd-client
+
+[gcc342]: https://github.com/MediaTek-Labs/linkit-smart-7688-uboot/blob/master/buildroot-gcc342.tar.bz2
+[mediatek_uboot]: https://github.com/MediaTek-Labs/linkit-smart-7688-uboot
