@@ -112,9 +112,11 @@ try to build a custom toolchain (finding the same `gcc`, `uLibc`), but since
 these things are old, I realized that it is rather overshot for the problem.
 If I am going to build a custom toolchain, than rather with a newer GCC etc.
 
-Fortunately, I have found the original SDK(!), with original (patched!) sources
-of the kernel, software, documentation etc. (!).
-It was lacking `gcc` - but I managed to find it too([buildroot-gcc342.tar.bz2][gcc342]).
+Fortunately, I have found the original SDK(!), with original
+(patched!) sources of the kernel, software, documentation etc., but only in
+[an unofficial GIT repo][ralink_sdl].
+It was lacking `gcc` - but I managed to find it too
+([buildroot-gcc342.tar.bz2][gcc342]).
 This opened a way to build (or at least - rebuild) the software to patch or
 add some missing features.
 
@@ -292,3 +294,5 @@ can be mapped properly (ie. mentioned RAM size).
 
 [gcc342]: https://github.com/MediaTek-Labs/linkit-smart-7688-uboot/blob/master/buildroot-gcc342.tar.bz2
 [mediatek_uboot]: https://github.com/MediaTek-Labs/linkit-smart-7688-uboot
+
+[ralink_sdk]: https://github.com/ee230/ralink_sdk.git
