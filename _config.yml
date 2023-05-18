@@ -1,7 +1,7 @@
 # Site settings
-title: Messy notes on random topics
+title: Misc. notes on random topics
 #email: your-email@domain.com
-description: "Messy notes on random (often computing) matters."
+description: "Misc. notes on random (often computing) matters."
 baseurl: ""
 url: "http://t-w.github.io"
 #twitter_username: jekyllrb
