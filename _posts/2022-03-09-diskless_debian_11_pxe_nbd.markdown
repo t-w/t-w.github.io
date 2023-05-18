@@ -21,20 +21,21 @@ An so it was this time...
 
 A long time ago (20 years or so...), I was building custom diskless linuxes for computer labs
 at my Alma Mater. Having a usual infrastructure in place, I was using read-only nfsroot, at some point
-improved with some hacks like layered filesystem (unionfs/aufs) - an approach that is used with
+improved with some hacks like layered filesystem (`unionfs/aufs`) - an approach that is used with
 some live CDs / USBs and some years later became popular with Docker containers. The purpose was
 similar - to keep the image (filesystem) of the original OS intact while letting work
-with relatively large permissions and have fresh a OS with each restart (to keep security
+with relatively large permissions and have a fresh OS with each restart (to keep security
 and reliability on reasonable level).
 
-As preparing such nfsroot system was taking quite a bit of time (dhbootstrap, manual
+As preparing such nfsroot system was taking quite a bit of time (`dhbootstrap`, manual
 scripting the init process etc.), I looked for other ways to keep my Vostro alive.
 Not using NFS (which AFAIK, at least in a standard unpatched Linux kernel, is the only _network_
 filesytem that can be used as the root filesystem), the other way is to have a network disk / block device.
 (Obviously) excluding enterprise solutions (not really great for home...), left me with iSCSI 
 and [Network Block Device (NBD)][nbd]. I knew the first one a bit, as (also many years ago)
 I have built the faculty's first SAN storage system on a Linux machine with disk array
-exported with [The Linux iSCSI Target][linux_iscsi_target] (meaning server, "_initiator_ / _target_" are legacy terms from SCSI).
+exported with [The Linux iSCSI Target][linux_iscsi_target] (meaning server, "_initiator_ / _target_"
+are legacy terms from SCSI).
 This still seemed a bit too complex for a home solution. Also, according to some opinions,
 NBD is way simpler and - what goes along - lighter and faster.
 
@@ -49,16 +50,16 @@ several different software packages). So please, have a look elsewhere for this
 A little more will be about NBD which is the main focus here.
 
 ### DHCP
-Must have a static IP configuration for the client host, with filename poiting to pxelinux.0
-on you tftp server. (Unless you have a more complex config. - but then you know what to do...).
+Must have a static IP configuration for the client host, with the filename pointing to `pxelinux.0`
+on your tftp server. (Unless you have a more complex config. - but then you know what to do...).
 
-It must provide proper configuration: the default router for your network and the DNS
+It must provide a proper configuration: the default router for your network and the DNS
 (otherwise Debian installer with not reach its package repositories).
 
 ### TFTP
-Must be setup and available for the client (ie. firewall). It will contain `pxelinux.0` with
+Must be set up and available for the client (ie. firewall). It will contain `pxelinux.0` with
 its modules, configuration, Debian's network installer, later also Debian's kernel and initrd
-(for the installed system - as we always boot from the network!).
+for the installed system - as we always boot from the network(!).
 
 ### DNS
 It should contain proper name resolution for the server(s) and the clients
@@ -78,7 +79,7 @@ dd if=/dev/zero of=/home/nbd/vostro-debian.img bs=1M count=5120
 ```
 
 2. Configure the NBD server to expose the image to client(s)
-Configuration of the nbd-server is fairly trivial. The following example is for Debian.
+Configuration of the `nbd-server` is fairly trivial. The following example is for Debian.
 - create a file `/etc/nbd-server/conf.d/`, eg. `/etc/nbd-server/conf.d/mydebian.conf`
 ```
 [mydebian]
@@ -89,10 +90,10 @@ Configuration of the nbd-server is fairly trivial. The following example is for 
 `mydebian` is _the name of the export_ (later used with `nbd-client` with `-N` option),
 while the `exportname` is the path to the exported image/file (why they named it `exportname` - no idea...).
 
-The client will need to access the nbd's port (which, by default, is tcp/10809).
-(Re)start the `nbd-server` - and you're done (you may eventually check system logs).
+The client will need to access the nbd's port (which, by default, is `tcp/10809`).
+(Re)start the `nbd-server` - and you're done (you may eventually check the system logs).
 
-Note that by default (set in the global config of nbd-server: `/etc/nbd-server/config`),
+Note that by default (set in the global config of the `nbd-server`: `/etc/nbd-server/config`),
 the `nbd-server` will run as user `ndb`/group `ndb` - the ownership and permissions to the image file
 must be properly set.
 
@@ -109,20 +110,21 @@ must be pointing to `pxelinux.0` as boot file. Then, in the same directory, `pxe
 The simplest way is to put it as the only thing on the tftp server (to the tftp's main export directory) - 
 you do not have to do anything more then - Debian installer should load and start.
 
-I have decided to put the installer into some subdirectory (as have more things available on tftp / pxelinux).
-The installer put into eg. `debian-installer/11/i386` (under tftp server path!) require adding
+I have decided to put the installer into some subdirectory (as I have more things available on tftp / pxelinux).
+The installer put into eg. `debian-installer/11/i386` (under tftp server path) require adding
 the following section in your PXELINUX config:
 ```
 LABEL PXE_Debian_11_i386_Installer
    CONFIG debian-installer/11/i386/debian-installer/i386/pxelinux.cfg/default debian-installer/11/i386/debian-installer/i386/
 ```
-The network debian installer is not booting well from a subdirectory (why oh why???). It requires the following modifications:
+However, the original network debian installer is not booting well from a subdirectory (why oh why???).
+It requires the following modifications:
 1. Adding the symbolic link:
 ```
 $ cd debian-installer/11/i386/debian-installer/i386/pxelinux.cfg/
 $ ln -s ../ debian-installer
 ```
-2. Change the Debian's `pxelinux.cfg/default` to use relative paths, ie. replace:
+2. Changing the Debian's `pxelinux.cfg/default` to use relative paths, ie. replace:
 ```
 path debian-installer/i386/boot-screens/
 include debian-installer/i386/boot-screens/menu.cfg
@@ -135,7 +137,7 @@ include boot-screens/menu.cfg
 default vesamenu.c32
 ```
 
-3. Link the proper modules
+3. Linking the proper modules
 If you are not using Debian's version of PXELinux, the modules in `boot-screens/` might not work properly.
 You may have to link there the ones from your pxelinux installation.
 
@@ -147,8 +149,8 @@ as they have hardcoded paths (this actually could be done better in Debian).
 won't need any CD/DVD/USB image anymore.)
 
 ### NBD and Debian installer
-While Debian installer provides loading nbd modules as an option, there are no tools allowing
-to actually configure and use an nbd (what just makes nbd modules useless...). This is the major chore
+While the original Debian installer provides loading nbd modules as an option, there are _no tools allowing
+to actually configure and use an nbd device_ (what just makes the nbd modules useless...). This is the major chore
 during the installation - it is necessary to get the `nbd-client` binary which will work within
 the installation system (which is _not_ the same package as in the regular system - as the installer
 does not contain most of the libraries). I extracted the binary from package `nbd-client-udeb_3.21-1_i386.udeb`
@@ -157,17 +159,17 @@ You can find one on any Debian mirror, eg. [this one][icm_debian_nbd].
 
 The binary has to be transferred to the installation system - tip: check what tools
 are available (ftp/tftp/curl/scp/etc) and just make it available for download. Other way would be
-modification of the installator's initrd (this would make it permanent, useful in case of creating other
+a modification of the installator's `initrd` (this would make it permanent, useful in case of creating other
 similar installations) - but I haven't considered it worthwhile.
 
-`nbd-client` copied to the Debian installer system allows finally to setup the block device:
+`nbd-client` copied to the Debian installer system allows finally to setup the exported block device:
 ```
 nbd-client -N mydebian nbdserverhostname /dev/nbd0
 ```
 Then, such device can be partitioned, formatted and used by the installer as target.
 
 (In case you cannot partition it from installer - it can also be done locally on the server
-using a loop device with whatever program you want. The installer require just specifying
+using a loop device with whatever program you want. The Debian installer require just specifying
 mount points and filesystems).
 
 ### Installation of the system
@@ -255,11 +257,12 @@ $ ldd nbd-3.24/nbd-client
 This is why I decided to just put it on the tftp server and download - so that I can
 eventually update it without rebuilding the whole initrd.
 
+
 ### initrd with nbd support - more generic and parametrized
 The recipe above was a quick prototype of initrd, with hardcoded values (adresses, NBD name etc.).
 It was possible to improve this and do it in a less invasive and more flexible (parametrized) way.
 
-1. Modification in [`/init`][init_patched] - add setting `NBDROOT` from kernel parameter nbdroot:
+1. Modification in [`/init`][init_patched] - add setting `NBDROOT` from the kernel parameter `nbdroot`:
 ```
 [...]
 # Parse command line options
@@ -285,7 +288,7 @@ for x in $(cat /proc/cmdline); do
 
 3. Put [`nbd-client`][nbd_client_for_installed] binary into `/bin/` on initrd (no need to download it separately).
 
-This way, the nbd device can be configured in the pxelinux using kernel parameter nbdroot
+This way, the nbd device can be configured in the `pxelinux` configuration using the kernel parameter `nbdroot`
 (as shown in example above).
 
 (This version of initrd is still not perfect, but it could already be proposed
@@ -294,25 +297,27 @@ to implement in Debian. It would make creating systems on NBD much simpler and f
 
 ## Result and conclusions
 My Vostro works fine running Debian on NBD since few months.
-The NBD (through 100Mb network card!) does not seem visibly slower than the weird SSD - the machine itself
-is very slow in today's standards (Intel Atom).
-In the meantime, I've made the same setup for another machine (and may do similar things for some others).
+The NBD, operating through a 100Mb network card, does not seem visibly slower
+than the weird SSD - the machine itself is very slow in today's standards (Intel Atom).
+In the meantime, I've made the same setup for another machine (and may do similar things
+for some others).
 
-As you could see, while there are a few tricky places, Debian (and probably other distros too)
+As you can see, while there are a few tricky places, Debian (and probably other distros too)
 can be installed and used with root filesystem on an NBD device. If Debian developers
-remove the weird obstacles (like the lack of `nbd-client` in the installer
-and lack of proper code for NBD device setup in the generic init scripts), Debian could be
-ready to install and use from NBD nearly as easy as in other types of installation.
+remove the weird obstacles (like the lack of the `nbd-client` in the installer system
+and a lack of proper code for setting up an NBD device in the generic init scripts),
+Debian could be ready to install and use from NBD nearly as easy as in other types
+of installation.
 
 Such installation has some drawbacks:
 - it require a bit in infrastructure available (as described)
 - it require copying the kernel and initrd to the tftp server on every update(!),
-along with updating either symlinks or pxelinux configuration.
+along with updating either symlinks or the pxelinux configuration.
 
-But it also has many advantages, eg. having image of the system in a file gives
-the same flexibility as with a virtual machines: backup is just a file copy,
-templating, reuse for any experiments is equally simple - but it runs on a bare metal hardware.
-Also - the use of some "special" machines (like described above) can be extended and/or
+But it also has many advantages, eg. having an image of the system in a file gives
+the same flexibility as with a virtual machine: backup is just a file copy,
+templating, reuse for any experiments is equally simple - but it runs on a bare metal hardware(!).
+Also - the use of some "special" machines (like the one described above) can be extended,
 made more robust and easier to recover.
 
 
