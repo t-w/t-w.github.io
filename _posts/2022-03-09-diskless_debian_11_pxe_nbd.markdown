@@ -297,7 +297,7 @@ to implement in Debian. It would make creating systems on NBD much simpler and f
 
 ## Result and conclusions
 My Vostro works fine running Debian on NBD since few months.
-The NBD, operating through a 100Mb network card, does not seem visibly slower
+The NBD, operating through a 100Mb network card, does not seem to be much slower
 than the weird SSD - the machine itself is very slow in today's standards (Intel Atom).
 In the meantime, I've made the same setup for another machine (and may do similar things
 for some others).
@@ -327,6 +327,10 @@ made more robust and easier to recover.
 - [UDEB][udeb]
 - [DI_COMPONENTS][di_components]
 - iSCSI: [iSCSI initiator][open_iscsi], [iSCSI target (stgt)][stgt], [iSCSI target (istgt)][istgt]
+- Discussions on Debian mailing lists:
+  - [debian nbd discussion1][debian_nbd_discussion1]
+  - [debian nbd discussion2][debian_nbd_discussion2]
+  - [debian nbd discussion3][debian_nbd_discussion3]
 
 [nbd]:    https://nbd.sourceforge.io
 [nbdgit]: https://github.com/NetworkBlockDevice/nbd
@@ -344,3 +348,7 @@ made more robust and easier to recover.
 [init_patched]: https://github.com/t-w/debian_on_nbd/blob/main/patch/init
 [script_nbd]:  https://github.com/t-w/debian_on_nbd/blob/main/patch/scripts/nbd
 [nbd_client_for_installed]: https://github.com/t-w/debian_on_nbd/blob/main/patch/bin/nbd-client
+
+[debian_nbd_discussion1]: https://lists.debian.org/debian-boot/2011/06/msg00401.html
+[debian_nbd_discussion2]: https://lists.debian.org/nbd/2019/06/msg00022.html
+[debian_nbd_discussion3]: https://lists.debian.org/nbd/2009/07/msg00008.html
