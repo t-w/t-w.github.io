@@ -25,15 +25,15 @@ improved with some hacks like layered filesystem (`unionfs/aufs`) - an approach 
 some live CDs / USBs and some years later became popular with Docker containers. The purpose was
 similar - to keep the image (filesystem) of the original OS intact while letting work
 with relatively large permissions and have a fresh OS with each restart (to keep security
-and reliability on reasonable level).
+and reliability on a reasonable level).
 
-As preparing such nfsroot system was taking quite a bit of time (`dhbootstrap`, manual
+As preparing such an nfsroot system was taking quite a bit of time (`dhbootstrap`, manual
 scripting the init process etc.), I looked for other ways to keep my Vostro alive.
-Not using NFS (which AFAIK, at least in a standard unpatched Linux kernel, is the only _network_
+Not using NFS (which, AFAIK, at least in a standard unpatched Linux kernel, is the only _network_
 filesytem that can be used as the root filesystem), the other way is to have a network disk / block device.
-(Obviously) excluding enterprise solutions (not really great for home...), left me with iSCSI 
+(Obviously) excluding enterprise solutions (not really great for home...), left me with iSCSI
 and [Network Block Device (NBD)][nbd]. I knew the first one a bit, as (also many years ago)
-I have built the faculty's first SAN storage system on a Linux machine with disk array
+I have built the faculty's first SAN storage system on a Linux machine with a disk array
 exported with [The Linux iSCSI Target][linux_iscsi_target] (meaning server, "_initiator_ / _target_"
 are legacy terms from SCSI).
 This still seemed a bit too complex for a home solution. Also, according to some opinions,
@@ -68,17 +68,17 @@ It should contain proper name resolution for the server(s) and the clients
 
 ## Create and export a disk image using NDB
 The NBD server allows to export a file (which can a regular file on a filesystem or,
-of course, be another block device, like an LVM volume) to network clients.
+of course, can be another block device, like an LVM volume) to network clients.
 
-So, the are 2 things to do:
+So, there are 2 things to do:
 
-1. Creating a file that will serve as the exported NDB image
+1. Creating a file that will serve as the exported NDB image.
 For instance, for a 5G file:
 ```
 dd if=/dev/zero of=/home/nbd/vostro-debian.img bs=1M count=5120
 ```
 
-2. Configure the NBD server to expose the image to client(s)
+2. Configure the NBD server to expose the image to the client(s)
 Configuration of the `nbd-server` is fairly trivial. The following example is for Debian.
 - create a file `/etc/nbd-server/conf.d/`, eg. `/etc/nbd-server/conf.d/mydebian.conf`
 ```
