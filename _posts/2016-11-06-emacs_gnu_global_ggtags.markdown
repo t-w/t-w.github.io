@@ -14,13 +14,13 @@ access to definitions, still [it does not provide way to find all occurences
 of a variable or a function][ctags]. So I was stuck with grep and friends...
 
 Today accidentally I have found [this post][cscope.stackex] with one but great answer,
-which in several lines provided me solution I was looking for. Basically instead of ctags/etags
-it is better to use GNU Global with ggtags (or helm-gtags).
+which in several lines provided me a solution I was looking for. Basically instead of ctags/etags
+it is better to use GNU Global with `ggtags` (or `helm-gtags`).
 I just had to do few simple steps:
 
 - install gnu global (in Debian `$ apt-get install global`)
 - install [MELPA][melpa] following [the instruction][melpa.install]
-- having MELPA in my Emacs I could do `package-list-packages` and having packages list
+- having MELPA in my Emacs, I could do `package-list-packages` and, having packages list,
   select and install `ggtags`
 
 And that's all.
