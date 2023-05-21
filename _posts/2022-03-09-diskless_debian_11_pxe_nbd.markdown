@@ -340,6 +340,34 @@ templating, reuse for any experiments is equally simple - but it runs on a bare 
 Also - the use of some "special" machines (like the one described above) can be extended,
 made more robust and easier to recover.
 
+## Follow-up and updates
+I have contacted [debian-user][https://lists.debian.org/debian-user/2023/05/msg00853.html]
+about the issues and, following the advice, the maintainer of the `nbd-client`.
+
+New things to know:
+### nbd-client package
+... (deb, not udeb) contains a start-up script and a iniramfs hook for putting
+the binary into the initrd (while working on the target system).
+
+I have tested these and unfortunately, there are still issues:
+- `nbd-client` binary used for initrd is the one from deb package (linked to libraries
+unavailable inside initrd, see details above)
+- the nbd startup script is not in the right place:
+  it is in `/usr/share/initramfs-tools/scripts/local-top/` while `/init` expects it
+  to be in `/usr/share/initramfs-tools/scripts/`
+- the nbd startup script do not override the `mountroot` shell function, what is, again,
+  expected by `/init` (in which this function is just empty) and, in result, the rootfs is
+  just not mounted during the startup...).
+
+
+### Debian installer
+... has the parameter `modules=partman-nbd`, which, according to
+`/usr/share/doc/nbd-client/README.Debian.gz` should let configure nbd from
+Debian installer.
+
+
+### to be continued...
+
 
 ## Useful links
 - [NBD][nbd]
