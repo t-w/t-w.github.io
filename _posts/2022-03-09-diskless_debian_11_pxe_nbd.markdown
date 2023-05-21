@@ -245,9 +245,28 @@ fi
 ```
 
 The `nbd-client` was a bit tricky - the one used for installation could not be used
-as it was linked with libraries which are not available inside the initrd image.
+as it was linked with libraries which are not available inside the initrd image:
+```
+# ldd /sbin/nbd-client
+        linux-gate.so.1 (0xb7f3f000)
+        libgnutls.so.30 => /lib/i386-linux-gnu/libgnutls.so.30 (0xb7cf5000)
+        libnl-genl-3.so.200 => /lib/i386-linux-gnu/libnl-genl-3.so.200 (0xb7cec000)
+        libnl-3.so.200 => /lib/i386-linux-gnu/libnl-3.so.200 (0xb7cc7000)
+        libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xb7adf000)
+        libp11-kit.so.0 => /lib/i386-linux-gnu/libp11-kit.so.0 (0xb798a000)
+        libidn2.so.0 => /lib/i386-linux-gnu/libidn2.so.0 (0xb7968000)
+        libunistring.so.2 => /lib/i386-linux-gnu/libunistring.so.2 (0xb77e6000)
+        libtasn1.so.6 => /lib/i386-linux-gnu/libtasn1.so.6 (0xb77cf000)
+        libnettle.so.8 => /lib/i386-linux-gnu/libnettle.so.8 (0xb7784000)
+        libhogweed.so.6 => /lib/i386-linux-gnu/libhogweed.so.6 (0xb773b000)
+        libgmp.so.10 => /lib/i386-linux-gnu/libgmp.so.10 (0xb76ab000)
+        libpthread.so.0 => /lib/i386-linux-gnu/libpthread.so.0 (0xb7689000)
+        /lib/ld-linux.so.2 (0xb7f41000)
+        libffi.so.7 => /lib/i386-linux-gnu/libffi.so.7 (0xb767f000)
+        libdl.so.2 => /lib/i386-linux-gnu/libdl.so.2 (0xb7679000)
+```
 The solution was to build a custom `nbd-client` on minimal Debian (with only
-gcc, make and libglib2-dev) - so the it is linked with only very basic stuff:
+`gcc`, `make` and `libglib2-dev`) - so that it is linked only with very basic stuff:
 ```
 $ ldd nbd-3.24/nbd-client
         linux-gate.so.1 (0xf7fce000)
@@ -255,7 +274,7 @@ $ ldd nbd-3.24/nbd-client
         /lib/ld-linux.so.2 (0xf7fd0000)
 ```
 This is why I decided to just put it on the tftp server and download - so that I can
-eventually update it without rebuilding the whole initrd.
+eventually update it without rebuilding the whole initrd...
 
 
 ### initrd with nbd support - more generic and parametrized
@@ -286,7 +305,8 @@ for x in $(cat /proc/cmdline); do
 ```
 2. Add the [`/scripts/nbd`][script_nbd] script (configuring and mounting rootfs on NBD).
 
-3. Put [`nbd-client`][nbd_client_for_installed] binary into `/bin/` on initrd (no need to download it separately).
+3. Put [`nbd-client`][nbd_client_for_installed] binary into `/bin/` (or better `/sbin/`)
+on initrd (no need to download it separately).
 
 This way, the nbd device can be configured in the `pxelinux` configuration using the kernel parameter `nbdroot`
 (as shown in example above).
