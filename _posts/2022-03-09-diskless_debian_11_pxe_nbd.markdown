@@ -162,6 +162,9 @@ are available (ftp/tftp/curl/scp/etc) and just make it available for download. O
 a modification of the installator's `initrd` (this would make it permanent, useful in case of creating other
 similar installations) - but I haven't considered it worthwhile.
 
+_(Update: apparently, there is an easier way to get the `nbd-client` binary
+inside the installer system, see follow up notes at the bottom)._
+
 `nbd-client` copied to the Debian installer system allows finally to setup the exported block device:
 ```
 nbd-client -N mydebian nbdserverhostname /dev/nbd0
