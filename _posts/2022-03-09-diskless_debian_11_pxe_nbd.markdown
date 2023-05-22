@@ -344,11 +344,11 @@ made more robust and easier to recover.
 [I have contacted `debian-user`](https://lists.debian.org/debian-user/2023/05/msg00853.html)
 about the issues and, following the advice, also the maintainer of the `nbd-client`.
 
-Some useful info from the feedback and new findings:
+Some useful info from the feedback and a few new findings:
 
 ### Debian installer
 - has a dedicated NBD parameter `modules=partman-nbd`, which, according to
-`/usr/share/doc/nbd-client/README.Debian.gz` should let configure nbd from
+`/usr/share/doc/nbd-client/README.Debian.gz` should let configure nbd using
 Debian installer.
 
 - during the installation (within the installer system), the `nbd-client` can
