@@ -200,6 +200,49 @@ you may prefer overwriting the files or editing the config file instead.
 (The `nbdroot` parameter is not fully used in the first prototype version of initrd, ie. data provided is not parsed.
 It is corrected in the improved version of initrd, see after the next section).
 
+### nbd-client binary for initrd
+Getting an `nbd-client` binary suitable for use inside initrd was a bit
+tricky. The one used for installation (from udeb) could not be used as it was
+linked with libraries which are not available inside the initrd image:
+```
+# ldd nbd-client
+        linux-gate.so.1 (0xb7f50000)
+        libnl-genl-3.so.200 => /lib/i386-linux-gnu/libnl-genl-3.so.200 (0xb7f25000)
+        libnl-3.so.200 => /lib/i386-linux-gnu/libnl-3.so.200 (0xb7f00000)
+        libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xb7d18000)
+        libpthread.so.0 => /lib/i386-linux-gnu/libpthread.so.0 (0xb7cf6000)
+        /lib/ld-linux.so.2 (0xb7f52000)
+```
+and better not even to try to use the version from a regular system:
+```
+# ldd /sbin/nbd-client
+        linux-gate.so.1 (0xb7f3f000)
+        libgnutls.so.30 => /lib/i386-linux-gnu/libgnutls.so.30 (0xb7cf5000)
+        libnl-genl-3.so.200 => /lib/i386-linux-gnu/libnl-genl-3.so.200 (0xb7cec000)
+        libnl-3.so.200 => /lib/i386-linux-gnu/libnl-3.so.200 (0xb7cc7000)
+        libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xb7adf000)
+        libp11-kit.so.0 => /lib/i386-linux-gnu/libp11-kit.so.0 (0xb798a000)
+        libidn2.so.0 => /lib/i386-linux-gnu/libidn2.so.0 (0xb7968000)
+        libunistring.so.2 => /lib/i386-linux-gnu/libunistring.so.2 (0xb77e6000)
+        libtasn1.so.6 => /lib/i386-linux-gnu/libtasn1.so.6 (0xb77cf000)
+        libnettle.so.8 => /lib/i386-linux-gnu/libnettle.so.8 (0xb7784000)
+        libhogweed.so.6 => /lib/i386-linux-gnu/libhogweed.so.6 (0xb773b000)
+        libgmp.so.10 => /lib/i386-linux-gnu/libgmp.so.10 (0xb76ab000)
+        libpthread.so.0 => /lib/i386-linux-gnu/libpthread.so.0 (0xb7689000)
+        /lib/ld-linux.so.2 (0xb7f41000)
+        libffi.so.7 => /lib/i386-linux-gnu/libffi.so.7 (0xb767f000)
+        libdl.so.2 => /lib/i386-linux-gnu/libdl.so.2 (0xb7679000)
+```
+The solution was to build a custom `nbd-client` on minimal Debian (with only
+`gcc`, `make` and `libglib2-dev`) - so that it is linked only with very basic stuff:
+```
+$ ldd nbd-3.24/nbd-client
+        linux-gate.so.1 (0xf7fce000)
+        libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xf7d9b000)
+        /lib/ld-linux.so.2 (0xf7fd0000)
+```
+
+
 ### initrd with nbd support (quick'n'dirty prototype)
 The generic initrd does not support NBD and has to be modified. The fastest way I found is to add
 a simple script `/init_nbd` setting-up the NBD:
@@ -246,38 +289,10 @@ if [ "$ROOTDELAY" ]; then
 fi
 [...]
 ```
-
-The `nbd-client` was a bit tricky - the one used for installation could not be used
-as it was linked with libraries which are not available inside the initrd image:
-```
-# ldd /sbin/nbd-client
-        linux-gate.so.1 (0xb7f3f000)
-        libgnutls.so.30 => /lib/i386-linux-gnu/libgnutls.so.30 (0xb7cf5000)
-        libnl-genl-3.so.200 => /lib/i386-linux-gnu/libnl-genl-3.so.200 (0xb7cec000)
-        libnl-3.so.200 => /lib/i386-linux-gnu/libnl-3.so.200 (0xb7cc7000)
-        libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xb7adf000)
-        libp11-kit.so.0 => /lib/i386-linux-gnu/libp11-kit.so.0 (0xb798a000)
-        libidn2.so.0 => /lib/i386-linux-gnu/libidn2.so.0 (0xb7968000)
-        libunistring.so.2 => /lib/i386-linux-gnu/libunistring.so.2 (0xb77e6000)
-        libtasn1.so.6 => /lib/i386-linux-gnu/libtasn1.so.6 (0xb77cf000)
-        libnettle.so.8 => /lib/i386-linux-gnu/libnettle.so.8 (0xb7784000)
-        libhogweed.so.6 => /lib/i386-linux-gnu/libhogweed.so.6 (0xb773b000)
-        libgmp.so.10 => /lib/i386-linux-gnu/libgmp.so.10 (0xb76ab000)
-        libpthread.so.0 => /lib/i386-linux-gnu/libpthread.so.0 (0xb7689000)
-        /lib/ld-linux.so.2 (0xb7f41000)
-        libffi.so.7 => /lib/i386-linux-gnu/libffi.so.7 (0xb767f000)
-        libdl.so.2 => /lib/i386-linux-gnu/libdl.so.2 (0xb7679000)
-```
-The solution was to build a custom `nbd-client` on minimal Debian (with only
-`gcc`, `make` and `libglib2-dev`) - so that it is linked only with very basic stuff:
-```
-$ ldd nbd-3.24/nbd-client
-        linux-gate.so.1 (0xf7fce000)
-        libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xf7d9b000)
-        /lib/ld-linux.so.2 (0xf7fd0000)
-```
-This is why I decided to just put it on the tftp server and download - so that I can
-eventually update it without rebuilding the whole initrd...
+Concerning the issues with the `nbd-client` binary in initrd (above),
+for the prototype, I decided to put the binary on the tftp server and download
+it within init script - so that I could eventually update it without rebuilding
+the whole initrd...
 
 
 ### initrd with nbd support - more generic and parametrized
@@ -366,7 +381,7 @@ the target system).
 
 I have tested these and unfortunately, there are still issues:
 - `nbd-client` binary used for initrd is the one from deb package (linked to
-libraries unavailable inside initrd, see details above)
+libraries unavailable inside initrd, see details above, and below)
 - the nbd startup script is not in the right place:
   it is in `/usr/share/initramfs-tools/scripts/local-top/` while `/init`
   expects it to be in `/usr/share/initramfs-tools/scripts/`
