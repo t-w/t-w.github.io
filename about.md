@@ -4,8 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Misc. notes on random topics, rather computing-related ones, but usually
-not related among themselves.
+Misc. notes on random topics, but usually not related among themselves.
 
 No warranty of fun or usefulness: they might be useful or not, funny or not,
 interesting or not, unsetting or calming. Or not ;-)
