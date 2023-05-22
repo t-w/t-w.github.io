@@ -342,9 +342,9 @@ made more robust and easier to recover.
 
 ## Follow-up and updates
 [I have contacted `debian-user`](https://lists.debian.org/debian-user/2023/05/msg00853.html)
-about the issues and, following the advice, the maintainer of the `nbd-client`.
+about the issues and, following the advice, also the maintainer of the `nbd-client`.
 
-New things I learned:
+Some useful info from the feedback and new findings:
 
 ### Debian installer
 - has a dedicated NBD parameter `modules=partman-nbd`, which, according to
@@ -357,22 +357,22 @@ be manually installed with: `anna install nbd-client`
 
 
 ### nbd-client and initrd scripts/configuration
-... (deb, not udeb) contains a start-up script and a iniramfs hook for putting
-the binary into the initrd (while working on the target system).
+`nbd-client` package (`deb`, not `udeb`) contains a start-up script and
+a iniramfs hook for putting the binary into the initrd (while working on
+the target system).
 
 I have tested these and unfortunately, there are still issues:
-- `nbd-client` binary used for initrd is the one from deb package (linked to libraries
-unavailable inside initrd, see details above)
+- `nbd-client` binary used for initrd is the one from deb package (linked to
+libraries unavailable inside initrd, see details above)
 - the nbd startup script is not in the right place:
-  it is in `/usr/share/initramfs-tools/scripts/local-top/` while `/init` expects it
-  to be in `/usr/share/initramfs-tools/scripts/`
-- the nbd startup script do not override the `mountroot` shell function, what is, again,
-  expected by `/init` (in which this function is just empty) and, in result, the rootfs is
-  just not mounted during the startup...).
+  it is in `/usr/share/initramfs-tools/scripts/local-top/` while `/init`
+  expects it to be in `/usr/share/initramfs-tools/scripts/`
+- the nbd startup script do not override the `mountroot` shell function, what
+  is, again, expected by `/init` (in which this function is just empty) and,
+  in result, the rootfs is just not mounted during the startup...).
 
 ### nbd-client binary for initrd
-Bug reported:
-https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1036539
+Bug [reported](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1036539).
 
 
 ### to be continued...
