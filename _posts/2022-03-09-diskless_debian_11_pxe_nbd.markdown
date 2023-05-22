@@ -341,11 +341,22 @@ Also - the use of some "special" machines (like the one described above) can be 
 made more robust and easier to recover.
 
 ## Follow-up and updates
-I have contacted [debian-user][https://lists.debian.org/debian-user/2023/05/msg00853.html]
+[I have contacted `debian-user`](https://lists.debian.org/debian-user/2023/05/msg00853.html)
 about the issues and, following the advice, the maintainer of the `nbd-client`.
 
-New things to know:
-### nbd-client package
+New things I learned:
+
+### Debian installer
+- has a dedicated NBD parameter `modules=partman-nbd`, which, according to
+`/usr/share/doc/nbd-client/README.Debian.gz` should let configure nbd from
+Debian installer.
+
+- during the installation (within the installer system), the `nbd-client` can
+be manually installed with: `anna install nbd-client`
+([information from the mailing list](https://lists.debian.org/debian-user/2023/05/msg00888.html))
+
+
+### nbd-client and initrd scripts/configuration
 ... (deb, not udeb) contains a start-up script and a iniramfs hook for putting
 the binary into the initrd (while working on the target system).
 
@@ -359,11 +370,9 @@ unavailable inside initrd, see details above)
   expected by `/init` (in which this function is just empty) and, in result, the rootfs is
   just not mounted during the startup...).
 
-
-### Debian installer
-... has the parameter `modules=partman-nbd`, which, according to
-`/usr/share/doc/nbd-client/README.Debian.gz` should let configure nbd from
-Debian installer.
+### nbd-client binary for initrd
+Bug reported:
+https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1036539
 
 
 ### to be continued...
