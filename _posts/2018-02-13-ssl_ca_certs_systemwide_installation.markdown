@@ -40,5 +40,7 @@ while verifying the certificate of a service.
 
 ### Useful links
 1. [Certificate Installation with OpenSSL - Other People's Certificates][cert_inst.1]
+2. [The Foreman manual on LDAP authentication, "Trusting SSL certificates"][foreman.1]
 
 [cert_inst.1]:   http://gagravarr.org/writing/openssl-certs/others.shtml
+[foreman.1]:     https://theforeman.org/manuals/3.10/index.html#4.1.1LDAPAuthentication
