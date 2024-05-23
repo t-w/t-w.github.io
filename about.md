@@ -4,12 +4,14 @@ title: About
 permalink: /about/
 ---
 
-Misc. notes on random topics, but usually not related among themselves.
+Misc. notes on random topics, usually not related among themselves.
 
-No warranty of fun or usefulness: they might be useful or not, funny or not,
-interesting or not, unsetting or calming. Or not ;-)
+No warranty of anything, ie. fun or usefulness: the notes might be useful
+or not, funny or not, interesting or not, unsettling or calming, etc..
+Or not ;-)
 
-Read on your own responsibility, the time is yours, it might be better to go out ;-)
+Read on your own responsibility - the time is yours, it might be better
+to go out for walk ;-)
 
 
 ---
